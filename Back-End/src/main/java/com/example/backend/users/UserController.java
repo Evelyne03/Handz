@@ -1,4 +1,4 @@
-package com.example.handzz.users;
+package com.example.backend.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
