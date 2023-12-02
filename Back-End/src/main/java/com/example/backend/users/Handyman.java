@@ -1,4 +1,4 @@
-package com.example.handzz.users;
+package com.example.backend.users;
 
 import java.time.LocalDate;
 

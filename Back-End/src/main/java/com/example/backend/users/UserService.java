@@ -1,4 +1,4 @@
-package com.example.handzz.users;
+package com.example.backend.users;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
