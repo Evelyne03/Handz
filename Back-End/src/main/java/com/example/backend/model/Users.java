@@ -1,4 +1,4 @@
-package com.example.backend.users;
+package com.example.backend.model;
 
 import java.time.LocalDate;
 
@@ -9,16 +9,7 @@ public class Users {
     private String password;
     private LocalDate created_at;
 
-    @Override
-    public String toString() {
-        return "Users{" +
-                "user_id=" + user_id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", created_at=" + created_at +
-                '}';
-    }
+
 
     public Users(int user_id, String name, String email, String password, LocalDate created_at) {
         this.user_id = user_id;
@@ -69,5 +60,16 @@ public class Users {
 
     public void setCreated_at(LocalDate created_at) {
         this.created_at = created_at;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "user_id=" + user_id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", created_at=" + created_at +
+                '}';
     }
 }
