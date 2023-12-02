@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloWorldService } from './hello-world.service';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
@@ -7,10 +10,11 @@ import { HelloWorldService } from './hello-world.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Start';
+  title = 'Handz';
   message: string;
 
   constructor(private helloWorldService: HelloWorldService) {this.message = "loading..." }
+
 
   ngOnInit() {
     this.getHelloWorldMessage();
