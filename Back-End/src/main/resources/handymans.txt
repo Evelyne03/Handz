@@ -1,0 +1,30 @@
+{
+     "email": "miguel@gmail.com",
+     "name": "Creto Miguel",
+     "expertise": "electrician",
+     "price": "178",
+     "password": "1111",
+     "imageURL": "work in progress",
+     "phoneNumber": "0773800007",
+     "profileDescription": "not Today"
+}
+{
+     "email": "andrei@gmail.com",
+     "name": "Andrei",
+     "expertise": "plumber",
+     "price": "200",
+     "password": "1111",
+     "imageURL": "work in progress",
+     "phoneNumber": "0773800007",
+     "profileDescription": "not Today"
+}
+{
+     "email": "giuso@gmail.com",
+     "name": "Giuso",
+     "expertise": "lockpicker",
+     "price": "350",
+     "password": "1111",
+     "imageURL": "work in progress"'
+     "phoneNumber": "0773800007",
+     "profileDescription": "not Today"
+}
