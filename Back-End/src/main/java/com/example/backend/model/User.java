@@ -1,25 +1,44 @@
 package com.example.backend.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
-public class Users {
+@Entity
+@Table(name = "Users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private int user_id;
     private String name;
     private String email;
     private String password;
     private LocalDate created_at;
+    private String profile_info;
 
+    public User() {
 
-
-    public Users(int user_id, String name, String email, String password, LocalDate created_at) {
+    }
+    public User(int user_id, String name, String email, String password, LocalDate created_at, String profile_info) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.created_at = created_at;
+        this.profile_info = profile_info;
     }
 
-    public Users() {
+    @Override
+    public String toString() {
+        return "user{" +
+                "user_id=" + user_id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", created_at=" + created_at +
+                ", profile_info='" + profile_info + '\'' +
+                '}';
     }
 
     public int getUser_id() {
@@ -62,14 +81,11 @@ public class Users {
         this.created_at = created_at;
     }
 
-    @Override
-    public String toString() {
-        return "Users{" +
-                "user_id=" + user_id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", created_at=" + created_at +
-                '}';
+    public String getProfile_info() {
+        return profile_info;
+    }
+
+    public void setProfile_info(String profile_info) {
+        this.profile_info = profile_info;
     }
 }
