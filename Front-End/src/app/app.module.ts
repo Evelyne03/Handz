@@ -6,6 +6,8 @@ import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,12 +19,14 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import { ClientComponent } from './client/client.component';
+import { MesterComponent } from './mester/mester.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ClientComponent
+    ClientComponent,
+    MesterComponent
   ],
     imports: [
         BrowserModule,
@@ -37,7 +41,7 @@ import { ClientComponent } from './client/client.component';
         FormsModule,
         MatDialogModule
     ],
-  providers: [AuthService],
+  providers: [AuthService, MesterComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

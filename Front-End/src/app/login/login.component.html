@@ -3,23 +3,22 @@
 
   <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
 
-  <div class="inputbox">
-      <label for="email">Email</label>
+    <div class="inputbox">
       <input type="email"
-             id="email"
-             required
-             email
+             class="input-field"
              [(ngModel)]="userEmail"
-             #email="ngModel"
              name="email"
-             class="form-control"
-             [class.is-invalid]="email.invalid && (email.dirty || email.touched)">
-      <div *ngIf="email.errors && (email.dirty || email.touched)">
-        <small class="text-danger" *ngIf="email.errors['required']">
-        </small>
-        <small class="text-danger" *ngIf="email.errors['email']">
-          Please enter a valid email address.
-        </small>
+             placeholder="Email"
+             #emailField="ngModel"
+             (ngModelChange)="validateEmail(emailField)"
+             required>
+      <div *ngIf="emailField.errors && (emailField.dirty || emailField.touched)">
+        <span class="error-message" *ngIf="emailField.errors['required']">
+          Email is required.
+        </span>
+        <span class="error-message" *ngIf="emailField.errors['invalidEmail']">
+          Invalid email.
+        </span>
       </div>
     </div>
 
