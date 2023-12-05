@@ -5,6 +5,7 @@ import com.example.backend.model.Handyman;
 import com.example.backend.model.Services;
 import com.example.backend.repo.HandymanRepo;
 import com.example.backend.repo.ServiceRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,21 @@ public class HandymanService {
     public List<Handyman> findAllHandymans(){
         return handymanRepo.findAll();
     }
-    public Handyman updateHandyman(Handyman handyman){
-        return handymanRepo.save(handyman);
+    public Handyman updateHandyman(Long id, Handyman updatedHandyman){
+
+        Handyman existingHandyman = handymanRepo.findById(Math.toIntExact(id))
+                .orElseThrow(() -> new EntityNotFoundException("Handyman not found with id: " + id));
+
+        existingHandyman.setName(updatedHandyman.getName());
+        existingHandyman.setEmail(updatedHandyman.getEmail());
+        existingHandyman.setPassword(updatedHandyman.getPassword());
+        existingHandyman.setImageURL(updatedHandyman.getImageURL());
+        existingHandyman.setPhoneNumber(updatedHandyman.getPhoneNumber());
+
+        existingHandyman.setServices(updatedHandyman.getServices());
+        existingHandyman.setBookings(updatedHandyman.getBookings());
+
+        return handymanRepo.save(existingHandyman);
     }
 
     public Handyman findHandymanById(int id){

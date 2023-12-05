@@ -38,9 +38,9 @@ public class HandymanController {
         return new ResponseEntity<>(newHandyman, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Handyman> updateHandyman(@RequestBody Handyman handyman){
-        Handyman updateHandyman =handymanService.updateHandyman(handyman);
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Handyman> updateHandyman(@PathVariable Long id, @RequestBody Handyman handyman){
+        Handyman updateHandyman =handymanService.updateHandyman(id, handyman);
         return new ResponseEntity<>(updateHandyman, HttpStatus.OK);
     }
 
