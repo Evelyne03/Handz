@@ -1,0 +1,31 @@
+<div class="mester-component">
+  <h1>Create Handyman Account</h1>
+  <form (ngSubmit)="onSubmit(mesterForm)" #mesterForm="ngForm">
+    <div class="inputbox">
+      <input type="text" class="input-field" [(ngModel)]="mester.name" name="name" placeholder="Name" required>
+    </div>
+    <div class="inputbox">
+      <input type="email" class="input-field" [(ngModel)]="mester.email" name="email" placeholder="Email" required>
+    </div>
+    <div class="inputbox">
+      <input type="password" class="input-field" [(ngModel)]="mester.password" name="password" placeholder="Password" required>
+    </div>
+    <div class="inputbox">
+      <input type="file" class="input-field" (change)="onImageSelected($event)" accept="image/*">
+    </div>
+    <div class="inputbox">
+      <input type="text" class="input-field" [(ngModel)]="mester.phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
+    </div>
+    <div class="inputbox">
+      <select class="input-field" [(ngModel)]="mester.service" name="service">
+        <option value="" disabled selected>Select a Service</option>
+        <option value="plumber">Plumber</option>
+        <option value="electrician">Electrician</option>
+        <option value="lockpicker">Lockpicker</option>
+      </select>
+    </div>
+    <div class="inputbox">
+      <button type="submit" [disabled]="mesterForm.invalid">Create Account</button>
+    </div>
+  </form>
+</div>

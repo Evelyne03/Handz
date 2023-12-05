@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
-import { NgForm} from "@angular/forms";
+import {NgForm, NgModel} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -29,6 +29,22 @@ export class LoginComponent implements OnInit {
 
   onAutentificareClick() {
     this.openLoginInNewWindow();
+  }
+
+  validateEmail(emailField: NgModel): void {
+    if (emailField.value && !emailField.value.includes('@')) {
+      emailField.control.setErrors({ 'invalidEmail': true });
+    } else {
+      // This is important to clear the error if the email becomes valid
+      if (emailField.errors && emailField.errors['invalidEmail']) {
+        delete emailField.errors['invalidEmail'];
+      }
+      // If no other validators are failing and the invalidEmail was the only error,
+      // we should also clear the errors completely by setting it to null
+      if (emailField.errors && Object.keys(emailField.errors).length === 0) {
+        emailField.control.setErrors(null);
+      }
+    }
   }
 
   // Method to handle form submission and validate the email

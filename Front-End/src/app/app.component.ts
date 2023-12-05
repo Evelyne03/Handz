@@ -3,6 +3,8 @@ import { HelloWorldService } from './hello-world.service';
 import { Router } from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import { MatDialog } from '@angular/material/dialog';
+import { ClientComponent} from "./client/client.component";
+import { MesterComponent} from "./mester/mester.component";
 
 
 @Component({
@@ -22,6 +24,15 @@ export class AppComponent implements OnInit {
     this.message = "loading...";
   }
 
+  ngOnInit() {
+    this.getHelloWorldMessage();
+  }
+  getHelloWorldMessage() {
+    this.helloWorldService.getHelloWorldMessage().subscribe(data => {
+      this.message = data;
+    });
+  }
+
   openLoginDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '50%',
@@ -32,13 +43,23 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.getHelloWorldMessage();
+  openClientDialog(): void {
+    const dialogRef = this.dialog.open(ClientComponent, {
+      width: '50%',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The client dialog was closed');
+    });
   }
 
-  getHelloWorldMessage() {
-    this.helloWorldService.getHelloWorldMessage().subscribe(data => {
-      this.message = data;
+  openMesterDialog(): void {
+    const dialogRef = this.dialog.open(MesterComponent, {
+      width: '50%', // Adjust as needed
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The mester dialog was closed');
+      // Handle the dialog close if needed
     });
   }
 
