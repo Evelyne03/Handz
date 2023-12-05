@@ -10,5 +10,5 @@ public interface HandymanRepo extends JpaRepository<Handyman , Integer> {
 
 
     Optional<Handyman> findByHandymanId(Integer handymanId);
-    Optional<Handyman> findHandymanByHandymanId(int id);//in case you give a random id
+    Optional<Handyman> findHandymanByHandymanId(int id);
 }
