@@ -1,0 +1,39 @@
+<div class="login-component">
+  <h1>Login</h1>
+
+  <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+
+  <div class="inputbox">
+      <label for="email">Email</label>
+      <input type="email"
+             id="email"
+             required
+             email
+             [(ngModel)]="userEmail"
+             #email="ngModel"
+             name="email"
+             class="form-control"
+             [class.is-invalid]="email.invalid && (email.dirty || email.touched)">
+      <div *ngIf="email.errors && (email.dirty || email.touched)">
+        <small class="text-danger" *ngIf="email.errors['required']">
+        </small>
+        <small class="text-danger" *ngIf="email.errors['email']">
+          Please enter a valid email address.
+        </small>
+      </div>
+    </div>
+
+    <div class="inputbox">
+      <label for="password">Password</label>
+      <input type="password"
+             id="password"
+             required
+             [(ngModel)]="userPassword"
+             #password="ngModel"
+             name="password"
+             class="form-control">
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Log in</button>
+  </form>
+</div>
