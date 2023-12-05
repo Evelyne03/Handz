@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloWorldService } from './hello-world.service';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Router } from '@angular/router';
+import {LoginComponent} from "./login/login.component";
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -13,8 +14,23 @@ export class AppComponent implements OnInit {
   title = 'Handz';
   message: string;
 
-  constructor(private helloWorldService: HelloWorldService) {this.message = "loading..." }
+  constructor(
+    private helloWorldService: HelloWorldService,
+    private router: Router,
+    public dialog: MatDialog
+  ) {
+    this.message = "loading...";
+  }
 
+  openLoginDialog(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '50%',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The login dialog was closed');
+    });
+  }
 
   ngOnInit() {
     this.getHelloWorldMessage();
@@ -25,4 +41,8 @@ export class AppComponent implements OnInit {
       this.message = data;
     });
   }
+
+  /*onAutentificareClick() {
+    this.router.navigate(['/login']);
+  }*/
 }

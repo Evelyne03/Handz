@@ -69,6 +69,13 @@
 
 
 
+.page-container {
+  overflow-y: auto;
+  /* Adjust the height as needed, or remove it to let it grow with the content */
+}
+
+
+
 .button-container {
   position: absolute;
   top: 20px;
