@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Handyman;
+import com.example.backend.model.Services;
 import com.example.backend.service.HandymanService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,9 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
-@RequestMapping("/handyman")
+@RequestMapping("/api/handyman")
 public class HandymanController {
     private final HandymanService handymanService;
     public HandymanController(HandymanService handymanService) {
@@ -20,8 +22,8 @@ public class HandymanController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Handyman>> getAllHands(){
-        List<Handyman> handymans = handymanService.findAllHandymans();
-        return new ResponseEntity<>(handymans, HttpStatus.OK);
+        List<Handyman> handymen = handymanService.findAllHandymans();
+        return new ResponseEntity<>(handymen, HttpStatus.OK);
     }
 
     @GetMapping("/find/{id}")
@@ -48,4 +50,13 @@ public class HandymanController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/allServices/{handymanId}")//this method returns all the services an handyman has
+    public Set<Services> getServicesByHandymanId(@PathVariable Integer handymanId) {
+        return handymanService.getServicesByHandymanId(handymanId);
+    }
+    @GetMapping("/all/{serviceId}")//this method returns all the handymen a service has(by id)
+    public Set<Handyman> getHandymenByServiceId(@PathVariable Integer serviceId) {
+        return handymanService.getHandymenByServiceId(serviceId);
+
+    }
 }
