@@ -85,4 +85,7 @@ public class HandymanService {
         return Optional.empty();
     }
 
+    public boolean existsByEmail(String email) {
+        return handymanRepo.existsByEmail(email);
+    }
 }

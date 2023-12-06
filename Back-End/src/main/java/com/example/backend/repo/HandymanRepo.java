@@ -13,4 +13,5 @@ public interface HandymanRepo extends JpaRepository<Handyman , Integer> {
     Optional<Handyman> findHandymanByHandymanId(int id);
     Optional<Handyman> findByEmail(String email);
 
+    boolean existsByEmail(String email);
 }

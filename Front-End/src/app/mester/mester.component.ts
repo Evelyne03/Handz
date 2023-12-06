@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {NgForm, NgModel} from '@angular/forms';
+import { RegHandymanService } from '../reg-handyman.service';
+import {Handyman, HandymanService} from "../Models/handyman.model";
 
 @Component({
   selector: 'app-mester',
@@ -17,7 +19,7 @@ export class MesterComponent {
     service: ''
   };
 
-  constructor() { }
+  constructor(private handymanService: HandymanService, private regService: RegHandymanService) { }
 
   onImageSelected(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
@@ -51,14 +53,23 @@ export class MesterComponent {
   }
 
   onSubmit(form: NgForm) {
-    if (form.valid) {
-      // Your logic to handle the form submission
-      // This might involve sending a request to a server or handling data processing
-      console.log('Form Data:', this.mester);
-      window.open('google.com', '_blank');
+
+    const val = parseInt(this.mester.phoneNumber, 10);
+    if (form.valid && this.mester.name && this.mester.email && this.mester.password && this.mester.phoneNumber && this.mester.service && this.mester.imageURL) {
+      this.regService.registerHandyman(this.mester.name, this.mester.email, this.mester.password, 'aaaaaa',  parseInt(this.mester.phoneNumber))
+        .subscribe((handymanData) => {
+          if (handymanData) {
+            console.log("Handyman registered successfully");
+            this.handymanService.setUser(handymanData);
+            console.log("HandymanData is: ", handymanData);
+            // Additional logic after successful registration (e.g., navigate to another page)
+          } else {
+            console.log('Registration failed');
+          }
+        });
     } else {
-      // Handle the case where the form is not valid
       console.log('Form is not valid');
     }
   }
+
 }

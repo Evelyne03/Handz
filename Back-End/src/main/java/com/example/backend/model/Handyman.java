@@ -13,10 +13,15 @@ public class Handyman implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private int handymanId;
+    @Column
     private String name;
+    @Column
     private String email;
+    @Column
     private String password;
+    @Column(length = 255)
     private String imageURL;
+    @Column
     private int phoneNumber;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(

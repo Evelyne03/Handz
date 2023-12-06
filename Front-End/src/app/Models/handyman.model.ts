@@ -1,5 +1,4 @@
 
-
 import {Service} from "./service.model";
 import {Booking} from "./booking.model";
 import {Injectable} from "@angular/core";

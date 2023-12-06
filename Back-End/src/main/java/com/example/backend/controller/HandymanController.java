@@ -38,15 +38,22 @@ public class HandymanController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Handyman> addHandyman(@RequestBody Handyman handyman){
-        Handyman newHandyman =handymanService.addHandyman(handyman);
-        if(newHandyman == null)
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        List<Handyman> list = handymanService.findAllHandymans();
-        for(Handyman h : list){
-            if(h.getEmail().equals(newHandyman.getEmail()))
-                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> addHandyman(@RequestBody Handyman handyman){
+        // Check for duplicate email before saving
+        if(handymanService.existsByEmail(handyman.getEmail())) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Error: Email already exists!");
         }
+
+        Handyman newHandyman = handymanService.addHandyman(handyman);
+
+        if(newHandyman == null) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Error: Handyman could not be created");
+        }
+
         return new ResponseEntity<>(newHandyman, HttpStatus.CREATED);
     }
 
