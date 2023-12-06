@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -53,6 +54,11 @@ public class HandymanService {
         return handymanRepo.findHandymanByHandymanId(id)
                 .orElseThrow(() -> new UserNotFoundException("Handymen by id:"+id+" was not found"));
     }
+
+    public Handyman findHandymanByEmail(String email){
+        return handymanRepo.findByEmail(email).orElseThrow();
+    }
+
     public void deleteHandyman(int id){
 
         handymanRepo.findByHandymanId(id).ifPresent(handymanRepo::delete);
@@ -67,6 +73,16 @@ public class HandymanService {
         return serviceRepo.findById(serviceId)
                 .map(Services::getHandymen) // Get the set of handymen for the service
                 .orElse(Collections.emptySet()); // Return an empty set if the service is not found
+    }
+
+    public Optional<Handyman> authHandyman(String email, String password){
+        Optional<Handyman> handymanOptional = handymanRepo.findByEmail(email);
+
+        if (handymanOptional.isPresent() && handymanOptional.get().getPassword().equals(password)) {
+            return handymanOptional;
+        }
+
+        return Optional.empty();
     }
 
 }

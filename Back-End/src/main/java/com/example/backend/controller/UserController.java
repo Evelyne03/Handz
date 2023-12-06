@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 
+import com.example.backend.model.Handyman;
 import com.example.backend.model.User;
 import com.example.backend.model.User;
 import com.example.backend.service.UserService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
@@ -45,5 +47,19 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable("id") int id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> user) throws IllegalAccessException {
+        String email = user.get("email");
+        String password = user.get("password");
+        try {
+            User handyman = userService.findHandymanByEmail(email);
+            if(!handyman.getPassword().equals(password))
+                throw new IllegalAccessException("Invalid password");
+            return ResponseEntity.status(HttpStatus.OK).body(handyman);
+        } catch (IllegalAccessException e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
     }
 }

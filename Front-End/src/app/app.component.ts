@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloWorldService } from './hello-world.service';
-import { Router } from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import { MatDialog } from '@angular/material/dialog';
 import { ClientComponent} from "./client/client.component";
 import { MesterComponent} from "./mester/mester.component";
+import {filter} from "rxjs";
+import { Router, Event as RouterEvent, NavigationEnd } from '@angular/router';
+
+
 
 
 @Component({
@@ -15,6 +18,7 @@ import { MesterComponent} from "./mester/mester.component";
 export class AppComponent implements OnInit {
   title = 'Handz';
   message: string;
+  showMainContent = true;
 
   constructor(
     private helloWorldService: HelloWorldService,
@@ -22,6 +26,13 @@ export class AppComponent implements OnInit {
     public dialog: MatDialog
   ) {
     this.message = "loading...";
+    this.showMainContent = true;
+
+    this.router.events.pipe(
+      filter((event: RouterEvent): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.showMainContent = event.url === '/';
+    });
   }
 
   ngOnInit() {
@@ -62,8 +73,5 @@ export class AppComponent implements OnInit {
       // Handle the dialog close if needed
     });
   }
-
-  /*onAutentificareClick() {
-    this.router.navigate(['/login']);
-  }*/
 }
+

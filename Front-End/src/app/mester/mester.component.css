@@ -62,6 +62,6 @@ button:hover {
 .error-message {
   color: red;
   font-size: 14px;
-  display: block;
+  display: block; /* Ensure error messages are always visible when they should be */
   margin-top: 5px;
 }

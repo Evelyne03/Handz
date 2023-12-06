@@ -59,6 +59,8 @@ public class Handyman implements Serializable {
         this.bookings = bookings;
     }
 
+    public int getId(){return handymanId;}
+
     public Set<Bookings> getBookings() {
         return bookings;
     }

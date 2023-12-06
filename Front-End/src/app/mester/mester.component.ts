@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {NgForm, NgModel} from '@angular/forms';
 
 @Component({
   selector: 'app-mester',
@@ -32,16 +32,33 @@ export class MesterComponent {
     }
   }
 
+
+  validateEmail(emailField: NgModel): void {
+    if (emailField.value && typeof emailField.value === 'string' && !emailField.value.includes('@')) {
+      emailField.control.setErrors({ 'invalidEmail': true });
+    } else {
+      this.clearInvalidEmailError(emailField);
+    }
+  }
+
+  clearInvalidEmailError(emailField: NgModel) {
+    if (emailField.errors && emailField.errors['invalidEmail']) {
+      delete emailField.errors['invalidEmail'];
+      if (Object.keys(emailField.errors).length === 0) {
+        emailField.control.setErrors(null);
+      }
+    }
+  }
+
   onSubmit(form: NgForm) {
     if (form.valid) {
       // Your logic to handle the form submission
       // This might involve sending a request to a server or handling data processing
       console.log('Form Data:', this.mester);
+      window.open('google.com', '_blank');
     } else {
       // Handle the case where the form is not valid
       console.log('Form is not valid');
     }
   }
-
-  // Optional: Any additional methods related to this component
 }

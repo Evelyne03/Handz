@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -6,23 +8,14 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   private _isLoggedIn = false;
+  private loginUrl = 'http://localhost:8080/api/user/login';
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
-  login(email: string, password: string): boolean {
-    // Placeholder logic for logging in
-    // In a real scenario, you'd call an API to validate credentials
-    if (email === 'test@example.com' && password === 'password') {
-      this._isLoggedIn = true;
-    }
-    return this._isLoggedIn;
+  logindb(email:string, password:string){
+    return this.http.post<any>(this.loginUrl, {email, password});
   }
-
-  isLoggedIn(): boolean {
-    return this._isLoggedIn;
-  }
-
-  logout(): void {
-    this._isLoggedIn = false;
+  getClientInfo() {
+    return {email: "", id: 0, name: ""};
   }
 }

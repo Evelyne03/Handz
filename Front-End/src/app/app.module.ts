@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-
+import { Component} from "@angular/core";
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,13 +20,21 @@ import {FormsModule} from "@angular/forms";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import { ClientComponent } from './client/client.component';
 import { MesterComponent } from './mester/mester.component';
+import { ClientInfoComponent } from './client-info/client-info.component';
+import { ClientProfileComponent } from './client-profile/client-profile.component';
+import { MakeBookingComponent } from './make-booking/make-booking.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ClientComponent,
-    MesterComponent
+    MesterComponent,
+    ClientInfoComponent,
+    ClientProfileComponent,
+    MakeBookingComponent,
+
   ],
     imports: [
         BrowserModule,

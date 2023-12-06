@@ -1,13 +1,15 @@
+
 <style>
   header.topnav {
 
   }
 
 </style>
+<div *ngIf="showMainContent">
 <body>
 
 <header class="topnav">
-  <div class="logo-container">
+  <div class="logo-container" *ngIf="showMainContent">
     <img src="assets/logo.png" class="navbar-logo" />
   </div>
   <nav class="navbar">
@@ -18,17 +20,11 @@
 </header>
 
 
-<div class="page-container">
+<div class="page-container" *ngIf="showMainContent">
   <div class="hero-section">
     </div>
 </div>
-
-</body>
-
-
-
-
-  <div class="review-section">
+  <div class="review-section" *ngIf="showMainContent">
     <div class="review-card1">
       <div class="review-header">
         <img src="assets/client_photo.jpg">
@@ -94,4 +90,6 @@
     </div>
 
   </div>
-
+</body>
+</div>
+<router-outlet></router-outlet>

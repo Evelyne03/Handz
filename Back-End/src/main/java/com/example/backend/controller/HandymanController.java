@@ -9,7 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.persistence.EntityNotFoundException;
+import com.example.backend.exception.UserNotFoundException;
+
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -58,5 +63,19 @@ public class HandymanController {
     public Set<Handyman> getHandymenByServiceId(@PathVariable Integer serviceId) {
         return handymanService.getHandymenByServiceId(serviceId);
 
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> user) throws IllegalAccessException {
+        String email = user.get("email");
+        String password = user.get("password");
+        try {
+            Handyman handyman = handymanService.findHandymanByEmail(email);
+            if(!handyman.getPassword().equals(password))
+                throw new IllegalAccessException("Invalid password");
+            return ResponseEntity.status(HttpStatus.OK).body(handyman);
+        } catch (IllegalAccessException e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
     }
 }

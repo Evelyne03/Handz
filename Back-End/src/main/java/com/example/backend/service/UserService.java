@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.exception.UserNotFoundException;
+import com.example.backend.model.Handyman;
 import com.example.backend.model.User;
 import com.example.backend.repo.UserRepo;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,9 @@ public class UserService {
     public void deleteUser(int id){
 
         userRepo.findUserByUserId(id).ifPresent(userRepo::delete);
+    }
+
+    public User findHandymanByEmail(String email){
+        return userRepo.findByEmail(email).orElseThrow();
     }
 }
