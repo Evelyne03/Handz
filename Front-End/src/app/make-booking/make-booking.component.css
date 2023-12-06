@@ -1,0 +1,14 @@
+/* Add this to your handyman-selector.component.css or equivalent file */
+.card-container {
+  max-height: 95%; /* Adjust the max-height as needed */
+  overflow-y: auto; /* This will add a scrollbar if the content is taller than the max-height */
+  margin: 10px 0;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px; /* Add space between cards */
+  border-radius: 5px;
+  background-color: #fff; /* Optional: for better readability */
+}
