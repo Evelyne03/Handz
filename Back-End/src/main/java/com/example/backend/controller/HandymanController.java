@@ -40,6 +40,13 @@ public class HandymanController {
     @PostMapping("/add")
     public ResponseEntity<Handyman> addHandyman(@RequestBody Handyman handyman){
         Handyman newHandyman =handymanService.addHandyman(handyman);
+        if(newHandyman == null)
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        List<Handyman> list = handymanService.findAllHandymans();
+        for(Handyman h : list){
+            if(h.getEmail().equals(newHandyman.getEmail()))
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(newHandyman, HttpStatus.CREATED);
     }
 
