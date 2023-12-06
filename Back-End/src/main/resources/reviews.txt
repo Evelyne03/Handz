@@ -1,0 +1,35 @@
+[
+  {
+      "user": {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "securepassword123",
+      "imageURL": "https://example.com/johndoe.jpg",
+      "phoneNumber": 1234567890,
+      "bookings": [
+        {
+          "bookingId": 101,
+          "bookingDate": "2023-12-06",
+          "bookingDetails": "Reservation for vacation"
+        },
+        {
+          "bookingId": 102,
+          "bookingDate": "2023-12-10",
+          "bookingDetails": "Business trip"
+        }
+      ]
+    },
+      "handyman": {
+          "name": "Andrei",
+          "email": "addd@example.com",
+          "password": "andru123",
+          "imageURL": "http://example.com/john.jpg",
+          "phoneNumber": "0004567890",
+          "services": [],
+          "bookings": []
+      },
+      "reviewTime": "2023-12-06T18:15:30",
+      "rating": "4",
+      "description": "Great service! Fixed my plumbing issues quickly."
+    }
+]
