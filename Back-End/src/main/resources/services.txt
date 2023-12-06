@@ -1,0 +1,39 @@
+[
+  {
+    "expertise": "Plumbing",
+    "availability": "Monday to Friday",
+    "pricing": 50,
+    "description": "Fixing plumbing issues",
+    "handymen": [
+        {
+                "handymanId": 1,
+                "name": "Andrei",
+                "email": "addd@example.com",
+                "password": "andru123",
+                "imageURL": "http://example.com/john.jpg",
+                "phoneNumber": "0004567890",
+                "services": [],
+                "bookings": []
+      }
+    ]
+  },
+  {
+    "expertise": "Electrical",
+    "availability": "Weekends",
+    "pricing": 60,
+    "description": "Electrical installations and repairs",
+    "handymen": [
+      {{
+               "handymanId": 1,
+               "name": "Andrei",
+               "email": "addd@example.com",
+               "password": "andru123",
+               "imageURL": "http://example.com/john.jpg",
+               "phoneNumber": "0004567890",
+               "services": [],
+               "bookings": []
+           }
+      }
+    ]
+  }
+]
