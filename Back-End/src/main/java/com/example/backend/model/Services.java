@@ -10,6 +10,7 @@ import java.util.Set;
 public class Services implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer serviceId;
     private String expertise;
     private String availability;
