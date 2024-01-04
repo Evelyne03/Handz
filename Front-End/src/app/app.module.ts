@@ -23,6 +23,7 @@ import { MesterComponent } from './mester/mester.component';
 import { ClientInfoComponent } from './client-info/client-info.component';
 import { ClientProfileComponent } from './client-profile/client-profile.component';
 import { MakeBookingComponent } from './make-booking/make-booking.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { MakeBookingComponent } from './make-booking/make-booking.component';
     ClientInfoComponent,
     ClientProfileComponent,
     MakeBookingComponent,
+    ConfirmationDialogComponent,
 
   ],
     imports: [

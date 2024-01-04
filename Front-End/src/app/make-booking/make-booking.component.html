@@ -1,5 +1,5 @@
-<div>
-  <label for="serviceSelect">Select a service:</label>
+<div class="service-selector">
+  <label for="serviceSelect">Select a service:  </label>
   <select id="serviceSelect" [(ngModel)]="selectedService">
     <option *ngFor="let service of services" [value]="service">{{ service }}</option>
   </select>
@@ -13,6 +13,9 @@
   <h4>{{ handyman.name }}</h4>
   <p>Email: {{ handyman.email }}</p>
   <p>Phone: {{ handyman.phoneNumber }}</p>
-  <!-- Display services and bookings if needed -->
+  <button class="booking-button" (click)="showConfirmation(handyman)">Make Booking</button>
+  <div *ngIf="handyman.showBookingConfirmation" class="confirmation-message">
+    Booking confirmed for {{ handyman.name }}!
+    <a routerLink="/reservations">View Reservations</a>
 </div>
 </div>

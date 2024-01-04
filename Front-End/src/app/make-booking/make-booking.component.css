@@ -1,7 +1,5 @@
 /* Add this to your handyman-selector.component.css or equivalent file */
 .card-container {
-  max-height: 95%; /* Adjust the max-height as needed */
-  overflow-y: auto; /* This will add a scrollbar if the content is taller than the max-height */
   margin: 10px 0;
 }
 
@@ -11,4 +9,101 @@
   margin-bottom: 10px; /* Add space between cards */
   border-radius: 5px;
   background-color: #fff; /* Optional: for better readability */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds subtle shadow for depth */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions for hover effects */
+}
+.card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Increased shadow for lifted effect */
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns in each row */
+  gap: 20px; /* Space between cards */
+  margin: 10px 0;
+}
+
+.card {
+  width: 100%; /* Each card takes up the full column width */
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card h4 {
+  font-size: 16px;
+  margin-top: 10px; /* Space between name and other info */
+}
+
+.card p {
+  font-size: 14px;
+}
+
+
+.service-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between items */
+  margin-bottom: 20px; /* Space below the selector */
+}
+
+.service-selector label {
+  font-size: 16px; /* Larger font for the label */
+  margin-right: 10px; /* Space between label and select */
+}
+
+.service-selector select {
+  padding: 5px 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  appearance: none; /* Removes default styles */
+  -webkit-appearance: none; /* Specific for Safari */
+  -moz-appearance: none; /* Specific for Firefox */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  cursor: pointer;
+}
+
+.service-selector button {
+  padding: 5px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2c3e50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.service-selector button:hover {
+  background-color: #2c3e50;
+}
+
+
+
+.booking-button {
+  padding: 5px 20px;
+  font-size: 14px; /* Adjust the font size as needed */
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px; /* Add space between text and button */
+}
+
+.booking-button:hover {
+  background-color: #2c3e50;
 }

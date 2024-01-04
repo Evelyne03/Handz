@@ -5,6 +5,7 @@ import {Injectable} from "@angular/core";
 
 
 export interface Handyman {
+  showBookingConfirmation: any;
   handymanId: number;
   name: string;
   email: string;

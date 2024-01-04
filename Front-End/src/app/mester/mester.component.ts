@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import {NgForm, NgModel} from '@angular/forms';
 import { RegHandymanService } from '../reg-handyman.service';
 import {Handyman, HandymanService} from "../Models/handyman.model";
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-mester',
@@ -19,7 +23,7 @@ export class MesterComponent {
     service: ''
   };
 
-  constructor(private handymanService: HandymanService, private regService: RegHandymanService) { }
+  constructor(private handymanService: HandymanService, private regService: RegHandymanService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   onImageSelected(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
@@ -32,6 +36,20 @@ export class MesterComponent {
       reader.onload = (e: any) => this.mester.imageURL = e.target.result;
       reader.readAsDataURL(this.mester.image); // No error as mester.image is guaranteed to be a File object
     }
+  }
+
+
+  showConfirmation(handyman: any) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: { handyman },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirm') {
+        handyman.showBookingConfirmation = true;
+        alert('Booking confirmed!');
+      }
+    });
   }
 
 
@@ -53,23 +71,16 @@ export class MesterComponent {
   }
 
   onSubmit(form: NgForm) {
-
-    const val = parseInt(this.mester.phoneNumber, 10);
-    if (form.valid && this.mester.name && this.mester.email && this.mester.password && this.mester.phoneNumber && this.mester.service && this.mester.imageURL) {
-      this.regService.registerHandyman(this.mester.name, this.mester.email, this.mester.password, 'aaaaaa',  parseInt(this.mester.phoneNumber))
-        .subscribe((handymanData) => {
-          if (handymanData) {
-            console.log("Handyman registered successfully");
-            this.handymanService.setUser(handymanData);
-            console.log("HandymanData is: ", handymanData);
-            // Additional logic after successful registration (e.g., navigate to another page)
-          } else {
-            console.log('Registration failed');
-          }
-        });
+    if (form.valid) {
+      // Your logic to handle the form submission
+      // This might involve sending a request to a server or handling data processing
+      console.log('Form Data:', this.mester);
     } else {
       console.log('Form is not valid');
     }
   }
+
+  // Optional: Any additional methods related to this component
+
 
 }

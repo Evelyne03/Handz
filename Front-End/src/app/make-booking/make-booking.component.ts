@@ -30,4 +30,11 @@ export class MakeBookingComponent {
       this.handymen = data;
     })
   }
+
+  showConfirmation(handyman: any) {
+    // Perform booking confirmation logic here (e.g., make an API call).
+    // Once the booking is confirmed, set showBookingConfirmation to true.
+    handyman.showBookingConfirmation = true;
+  }
+
 }
