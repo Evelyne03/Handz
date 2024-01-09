@@ -1,0 +1,54 @@
+html, body {
+  height: 100vh; /* Viewport Height: Makes the body the height of the viewport */
+  max-height: 100vh; /* Maximum Height: Ensures it doesn't grow beyond the viewport height */
+  overflow: hidden; /* Hides the scrollbar and prevents scrolling */
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+}
+
+/* Styles for your form */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: auto;
+}
+
+/* Container styles, if you use a container div */
+.container {
+  max-height: 100%; /* Limit the height to the parent's height */
+  overflow: hidden; /* Prevents scrolling within the container */
+}
+
+/* Styles for div elements */
+div {
+  margin-bottom: 10px;
+}
+
+/* Styles for label elements */
+label {
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Styles for input elements */
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styles for button elements */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}

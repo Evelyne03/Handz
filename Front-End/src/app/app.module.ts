@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { Component} from "@angular/core";
 
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,7 +17,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { LoginComponent } from './login/login.component';
 import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import { ClientComponent } from './client/client.component';
 import { MesterComponent } from './mester/mester.component';
@@ -25,6 +26,9 @@ import { ClientProfileComponent } from './client-profile/client-profile.componen
 import { MakeBookingComponent } from './make-booking/make-booking.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
+import { RouterModule } from "@angular/router";
+import { HistoryComponent } from './history/history.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     ClientProfileComponent,
     MakeBookingComponent,
     ConfirmationDialogComponent,
+    HistoryComponent,
+    SettingsComponent,
 
   ],
     imports: [
@@ -49,7 +55,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
         IonicModule,
         CommonModule,
         FormsModule,
-        MatDialogModule
+        MatDialogModule,
+        ReactiveFormsModule
     ],
   providers: [AuthService, MesterComponent],
   bootstrap: [AppComponent]

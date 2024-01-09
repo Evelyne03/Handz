@@ -1,0 +1,20 @@
+.history-container {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+
+.history-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.history-item {
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+
+

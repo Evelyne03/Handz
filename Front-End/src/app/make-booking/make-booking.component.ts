@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {Handyman, HandymanService} from "../Models/handyman.model";
+import {MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -13,7 +14,7 @@ export class MakeBookingComponent {
   selectedService = '';
   handymen: Handyman[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private dialog: MatDialog) {}
 
   onServiceSelect(service: string): void {
     this.selectedService = service;
@@ -36,5 +37,8 @@ export class MakeBookingComponent {
     // Once the booking is confirmed, set showBookingConfirmation to true.
     handyman.showBookingConfirmation = true;
   }
+
+
+
 
 }

@@ -1,7 +1,10 @@
 /* Style for the dashboard container */
 .dashboard {
   display: flex;
-  min-height: 100vh; /* Changed from height to min-height for flexibility */
+  top: 0;
+  min-height: 1000px;
+  height: 100vh;
+
 }
 
 /* Style for the navigation menu on the left */
@@ -42,7 +45,9 @@
   flex-grow: 1;
   padding: 40px; /* More padding for better spacing */
   background-color: #ecf0f1; /* Lighter shade for contrast with the menu */
-  overflow-y: auto; /* Adds scrolling for overflow content */
+  overflow-y: hidden;
+  width: calc(100% - 250px);
+  height: 100%;/* Adds scrolling for overflow content */
 }
 
 /* Optional: Add a hover effect to the list items */
@@ -55,4 +60,41 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A more modern font */
+}
+
+.transparent-button {
+  background: transparent;
+  border: none;
+  color: inherit; /* or specify the color you want */
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  font-size: inherit; /* Adjust as needed */
+}
+
+.transparent-button:hover {
+  text-decoration: underline; /* Optional: if you want to mimic link behavior */
+}
+
+.full-width-button {
+  width: 100%; /* Make the button full width */
+  background: transparent;
+  border: none;
+  color: inherit; /* Use the text color of the parent element */
+  text-align: left;
+  padding: 10px 15px; /* Adjust padding to match your design */
+  cursor: pointer;
+  font-size: inherit; /* Adjust font size as needed */
+  display: block; /* Make the button a block element */
+  font-weight: bold;
+}
+
+.full-width-button:hover {
+  background-color: #34495e; /* Replace with your hover color */
+}
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+  max-height: 100%;
 }

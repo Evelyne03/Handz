@@ -3,6 +3,14 @@
   margin: 10px 0;
 }
 
+body, html{
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  height: 100vh;
+}
+
+
 .card {
   border: 1px solid #ddd;
   padding: 10px;
@@ -20,12 +28,12 @@
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns in each row */
-  gap: 20px; /* Space between cards */
-  margin: 10px 0;
+  gap: 3px; /* Space between cards */
+  margin: 5px 3px;
 }
 
 .card {
-  width: 100%; /* Each card takes up the full column width */
+  width: 80%; /* Each card takes up the full column width */
   box-sizing: border-box;
   border: 1px solid #ddd;
   padding: 10px;
@@ -53,7 +61,7 @@
   display: flex;
   align-items: center;
   gap: 10px; /* Space between items */
-  margin-bottom: 20px; /* Space below the selector */
+  margin-bottom: 13px; /* Space below the selector */
 }
 
 .service-selector label {
@@ -61,9 +69,11 @@
   margin-right: 10px; /* Space between label and select */
 }
 
+
 .service-selector select {
   padding: 5px 10px;
   font-size: 16px;
+  font-weight: bold;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f8f8f8;
@@ -89,7 +99,6 @@
 .service-selector button:hover {
   background-color: #2c3e50;
 }
-
 
 
 .booking-button {

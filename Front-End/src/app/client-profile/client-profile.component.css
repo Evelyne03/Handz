@@ -1,0 +1,106 @@
+/* Reset margin and padding for all elements to ensure consistent styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Ensures padding does not affect the total width or height of an element */
+}
+
+
+/* Ensure html and body tags take up the full height and width of the page */
+html, body {
+  height: 900vh; /* Expand html and body to the viewport's height */
+  width: 100vw; /* Expand html and body to the viewport's width */
+  max-height: 200vh; /* Ensure html and body don't expand past the viewport's height */
+  margin-top: -50px;
+  margin-left: -20px;
+  margin-right: -200px;
+  position: fixed;
+  padding: 0;
+  size: 4in 6in;
+}
+
+/* Apply a background image that covers the entire page */
+body {
+  background-image: url('/assets/welcome_background.png');
+  background-size: cover; /* Ensures the image covers the entire viewport */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 100px center; /* Image positioned 100px from the left and centered vertically */
+  min-height: 100vh; /* Ensure minimum height is the full height of the viewport */
+  padding-bottom: 50px;
+  position: fixed;
+
+}
+
+
+/* Style the client container to fill the available space and center its children */
+.client-container {
+  display: flex; /* Use flexbox to center the content vertically and horizontally */
+  justify-content: start; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  text-align: center;
+  height: 100vh; /* Ensure the container fills the remaining vertical space */
+  width: 100vw; /* Constrain the container to the viewport's width */
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  margin:auto;
+  margin: 0;
+  transform: none;
+  position: absolute;
+  overflow: hidden;
+}
+
+.welcome-box {
+  /* Centering the welcome box if it's not the only element in .client-container */
+  margin: auto; /* This auto margin trick works when the element is a flex item */
+  /* Ensure the welcome box itself has no offsetting margins */
+  margin: 0;
+  /* Optional: Set a max-width if the box shouldn't stretch too wide */
+  max-width: 300px; /* Adjust as needed */
+  position: absolute;
+}
+
+/* Additional styles for the client content */
+.client-content {
+  padding: 20px;
+  position: fixed; /* Position the content box relative to the viewport */
+  top: 40%; /* Move the box to the center vertically */
+  left: 57%; /* Move the box to the center horizontally */
+  left: 57%; /* Move the box to the center horizontally */
+  left: 56%; /* Move the box to the center horizontally */
+  transform: translate(-50%, -50%); /* Adjust the positioning based on the center coordinates */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay to improve readability */
+  border-radius: 8px; /* Rounds the corners of the client-content box */
+  max-width: 600px; /* Prevents the content box from getting too wide on larger screens */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for the content box */
+}
+
+/* Make text bolder and ensure it is legible against the background */
+h2, p {
+  font-weight: bolder; /* This will make your text bolder */
+  color: #ffffff; /* This will make your text white, adjust the color as needed */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Adds a shadow to make the text more legible against the background */
+}
+
+.content {
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.no-horizontal-scrollbar {
+  overflow-x: hidden;
+}
+
+.no-vertical-scrollbar {
+  overflow-y: hidden;
+}
+
+.no-scrollbars {
+  overflow: hidden;
+}

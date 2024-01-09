@@ -2,18 +2,13 @@
   <div class="dashboard">
     <nav class="dashboard-menu">
       <ul>
-        <li><a routerLink="/client-info/booking">Make a Booking</a></li>
-        <li><a routerLink="/client-info/profile">Profile</a></li>
-        <li><a routerLink="/client-info/history">History</a></li>
-        <li><a routerLink="/client-info/settings">Settings</a></li>
+        <li> <button class="full-width-button" [routerLink]="'/client-info/booking'">Make a Booking</button></li>
+        <li><button class="full-width-button" [routerLink]="'/client-info/profile'">Profile</button></li>
+        <li><button class="full-width-button" [routerLink]="'/client-info/history'">My bokings</button></li>
+        <li><button class="full-width-button" [routerLink]="'/client-info/settings'">Settings</button></li>
       </ul>
     </nav>
     <div class="dashboard-content">
-      <!--<h2>Welcome, {{ clientInfo?.name }}</h2>
-      <p>Email: {{ clientInfo?.email }}</p>
-      <p>Password: {{ clientInfo?.password}}</p>
-
-      -->
       <router-outlet></router-outlet>
     </div>
   </div>
