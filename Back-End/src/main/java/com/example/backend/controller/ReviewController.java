@@ -1,51 +1,51 @@
 package com.example.backend.controller;
 
-import com.example.backend.model.Handyman;
 import com.example.backend.model.Review;
 import com.example.backend.service.ReviewService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/review")
+@RequestMapping("/api/reviews")
 public class ReviewController {
-    private final ReviewService reviewService;
 
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
+    @Autowired
+    private ReviewService reviewService;
+
+    @GetMapping
+    public List<Review> getAllReviews() {
+        return reviewService.getAllReviews();
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Review>> getAllReviews() {
-        List<Review> reviews = reviewService.findAllReviews();
-        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<Review> getReviewById(@PathVariable int reviewId) {
+        Optional<Review> review = reviewService.getReviewById(reviewId);
+        return review.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Review> getReviewById(@PathVariable("id") int id) {
-        Review review = reviewService.findReviewById(id);
-        return new ResponseEntity<>(review, HttpStatus.OK);
-    }
-
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<Review> addReview(@RequestBody Review review) {
-        Review newReview = reviewService.addReview(review);
-        return new ResponseEntity<>(newReview, HttpStatus.CREATED);
+        Review addedReview = reviewService.addReview(review);
+        return new ResponseEntity<>(addedReview, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Review> updateReview(@RequestBody Review review) {
-        Review updateReview = reviewService.updateReview(review);
-        return new ResponseEntity<>(updateReview, HttpStatus.OK);
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<Void> deleteReview(@PathVariable int reviewId) {
+        reviewService.deleteReview(reviewId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteReview(@PathVariable("id") int id) {
-        reviewService.deleteReview(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<Review> updateReview(@PathVariable int reviewId, @RequestBody Review updatedReview) {
+        Review updated = reviewService.updateReview(reviewId, updatedReview);
+        return updated != null ?
+                new ResponseEntity<>(updated, HttpStatus.OK) :
+                new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
 }
