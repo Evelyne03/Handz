@@ -56,7 +56,21 @@ public class HandymanController {
 
         return new ResponseEntity<>(newHandyman, HttpStatus.CREATED);
     }
-
+    @PostMapping("/{handymanId}/addService")
+    public ResponseEntity<Handyman> addCreatedServiceToHandyman(@PathVariable int handymanId, @RequestBody Services service) {
+        Handyman updatedHandyman = handymanService.addCreatedServiceToHandyman(handymanId, service);
+        return new ResponseEntity<>(updatedHandyman, HttpStatus.OK);
+    }
+    @PostMapping("/addService")
+    public ResponseEntity<String> addServiceToHandyman(@RequestParam int handymanId, @RequestParam int serviceId) {
+        try {
+            handymanService.addServiceToHandyman(handymanId, serviceId);
+            return ResponseEntity.ok("Service added successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();  // Log the exception for debugging
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding service to handyman.");
+        }
+    }
     @PatchMapping("/update/{id}")
     public ResponseEntity<Handyman> updateHandyman(@PathVariable Long id, @RequestBody Handyman handyman){
         Handyman updateHandyman =handymanService.updateHandyman(id, handyman);
@@ -69,7 +83,7 @@ public class HandymanController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/allServices/{handymanId}")//this method returns all the services an handyman has
+    @GetMapping("/allServices/{handymanId}")//this method returns all the services a handyman has
     public Set<Services> getServicesByHandymanId(@PathVariable Integer handymanId) {
         return handymanService.getServicesByHandymanId(handymanId);
     }

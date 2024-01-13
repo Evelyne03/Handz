@@ -36,7 +36,7 @@ public class User implements Serializable {
         this.bookings = bookings;
     }
 
-    public int getUser_id() {
+    public Integer getUser_id() {
         return userId;
     }
 

@@ -41,4 +41,8 @@ public class UserService {
     public User findHandymanByEmail(String email){
         return userRepo.findByEmail(email).orElseThrow();
     }
+
+    public boolean existsByEmail(String email) {
+        return userRepo.existsByEmail(email);
+    }
 }

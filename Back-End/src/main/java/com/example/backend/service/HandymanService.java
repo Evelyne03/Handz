@@ -30,6 +30,32 @@ public class HandymanService {
         return handymanRepo.save(handyman);
     }
 
+
+    public Handyman addCreatedServiceToHandyman(int handymanId, Services service) {
+        //can also be copied for making a booking ;*
+        Handyman handyman = handymanRepo.findById(handymanId)
+                .orElseThrow(() -> new EntityNotFoundException("Handyman with ID " + handymanId + " not found"));
+
+        handyman.getServices().add(service);
+        service.getHandymen().add(handyman);
+
+        handymanRepo.save(handyman);  // Save the updated Handyman
+        return handyman;
+    }
+    public void addServiceToHandyman(int handymanId, int serviceId) {
+        Handyman handyman = handymanRepo.findById(handymanId)
+                .orElseThrow(() -> new EntityNotFoundException("Handyman with ID " + handymanId + " not found"));
+
+        Services service = serviceRepo.findById(serviceId)
+                .orElseThrow(() -> new EntityNotFoundException("Service with ID " + serviceId + " not found"));
+
+        handyman.getServices().add(service);
+        service.getHandymen().add(handyman);
+
+        handymanRepo.save(handyman);  // Save the updated Handyman
+        serviceRepo.save(service);
+    }
+
     public List<Handyman> findAllHandymans(){
         return handymanRepo.findAll();
     }

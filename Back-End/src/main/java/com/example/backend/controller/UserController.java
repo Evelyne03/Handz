@@ -32,7 +32,14 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<User> addUser(@RequestBody User user){
+    public ResponseEntity<?> addUser(@RequestBody User user){
+        // Check for duplicate email before saving
+        if(userService.existsByEmail(user.getEmail())) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Error: Email already exists!");
+        }
+
         User newUser =userService.addUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }

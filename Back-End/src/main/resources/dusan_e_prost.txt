@@ -1,0 +1,62 @@
+// POST http://localhost:8080/api/handymen/add
+{
+    "name": "Ionut Bibanu",
+    "email": "somon@example.com",
+    "password": "pescaru79",
+    "imageURL": "http://example.com/john.jpg",
+    "phoneNumber": "0773900902",
+    "services": [],
+    "bookings": []
+}
+//Sa creat Handyman cu id 1
+// POST http://localhost:8080/api/services/add
+{
+    "expertise": "Light Bulb Replacement",
+    "availability": "Monday to Friday",
+    "pricing": 25,
+    "description": "Replace light bulbs"
+}
+//Sa creat serviciu cu id 1
+
+// POST http://localhost:8080/api/handymen/add
+{
+    "name": "Kutnik",
+    "email": "printesa@example.com",
+    "password": "calinvtm",
+    "imageURL": "http://example.com/john.jpg",
+    "phoneNumber": "0756222333",
+    "services": [],
+    "bookings": []
+}
+//Sa creat Handyman cu id 1
+// POST http://localhost:8080/api/services/add
+{
+    "expertise": "Painting",
+    "availability": "Weekdays",
+    "pricing": 35,
+    "description": "Indoor and outdoor painting"
+}
+//Sa creat serviciu cu id 2
+
+
+
+//POST http://localhost:8080/api/handyman/2/addService
+{
+    "expertise": "Furniture Assembly",
+    "availability": "Saturdays",
+    "pricing": 40,
+    "description": "Assemble and install furniture"
+}
+//sa creat serviciu cu id 3 dar acesta e si introdus in Handymen-ul cu id 2
+
+//POST http://localhost:8080/api/handyman/addService
+//info postman se parseaza, BODY:x-www-form-urlencoded ; doua variabile:handymanId si serviceId cu valorile lor specifice
+{
+  "handymanId": 1,
+  "serviceId": 2
+}
+//se leaga Handy men ul cu id 1 de serviciul cu id 2
+
+
+
+

@@ -3,6 +3,7 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -23,13 +24,13 @@ public class Handyman implements Serializable {
     private String imageURL;
     @Column
     private int phoneNumber;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "handyman_services", // A join table for the many-to-many relationship
             joinColumns = @JoinColumn(name = "handyman_id"),
             inverseJoinColumns = @JoinColumn(name = "service_id")
     )
-    private Set<Services> services;
+    private Set<Services> services = new HashSet<>();
 
     @OneToMany(mappedBy = "handyman", fetch = FetchType.LAZY)
     private Set<Bookings> bookings;
@@ -64,7 +65,7 @@ public class Handyman implements Serializable {
         this.bookings = bookings;
     }
 
-    public int getId(){return handymanId;}
+    public Integer getId(){return handymanId;}
 
     public Set<Bookings> getBookings() {
         return bookings;

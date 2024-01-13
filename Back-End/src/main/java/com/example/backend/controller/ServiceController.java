@@ -29,10 +29,14 @@ public class ServiceController {
         Services services = servicesService.findServicesById(id);
         return new ResponseEntity<>(services, HttpStatus.OK);
     }
-
+    @PostMapping("/{handymanId}/add")//this adds a service to our user but it also adds the service in the database,kinder bueno 2 in 1
+    public ResponseEntity<Services> addServiceToHandyman(@RequestBody Services service, @PathVariable int handymanId) {
+        Services savedService = servicesService.addService(service, handymanId);
+        return new ResponseEntity<>(savedService, HttpStatus.CREATED);
+    }
     @PostMapping("/add")
     public ResponseEntity<Services> addServices(@RequestBody Services services){
-        Services newServices =servicesService.addServices(services);
+        Services newServices =servicesService.addService(services,null);
         return new ResponseEntity<>(newServices, HttpStatus.CREATED);
     }
 

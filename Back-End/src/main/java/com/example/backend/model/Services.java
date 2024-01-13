@@ -1,8 +1,10 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,7 +19,8 @@ public class Services implements Serializable {
     private String description;
 
     @ManyToMany(mappedBy = "services", fetch = FetchType.LAZY)
-    private Set<Handyman> handymen;
+    @JsonIgnore
+    private Set<Handyman> handymen = new HashSet<>();
 
     public Services() {
     }

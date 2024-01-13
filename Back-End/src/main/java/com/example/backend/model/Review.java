@@ -10,36 +10,47 @@ public class Review implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
     private int reviewId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "handymanId", referencedColumnName = "handymanId")
     private Handyman handyman;
 
-    @Column
-    private LocalDateTime reviewTime;
+    @ManyToOne
+    private Services service;
 
-    @Column
-    private int rating;
-
-    @Column
-    private String description;
+    private int rating; // Assuming a rating from 1 to 5
+    private String comment;
+    private LocalDateTime reviewDateTime;
 
     public Review() {
     }
 
-    public Review(int reviewId, User user, Handyman handyman, LocalDateTime reviewTime, int rating, String description) {
+
+
+    public Review(int reviewId, User user, Handyman handyman, Services service, int rating, String comment, LocalDateTime reviewDateTime) {
         this.reviewId = reviewId;
         this.user = user;
         this.handyman = handyman;
-        this.reviewTime = reviewTime;
+        this.service = service;
         this.rating = rating;
-        this.description = description;
+        this.comment = comment;
+        this.reviewDateTime = reviewDateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId=" + reviewId +
+                ", user=" + user +
+                ", handyman=" + handyman +
+                ", service=" + service +
+                ", rating=" + rating +
+                ", comment='" + comment + '\'' +
+                ", reviewDateTime=" + reviewDateTime +
+                '}';
     }
 
     public int getReviewId() {
@@ -66,12 +77,12 @@ public class Review implements Serializable {
         this.handyman = handyman;
     }
 
-    public LocalDateTime getReviewTime() {
-        return reviewTime;
+    public Services getService() {
+        return service;
     }
 
-    public void setReviewTime(LocalDateTime reviewTime) {
-        this.reviewTime = reviewTime;
+    public void setService(Services service) {
+        this.service = service;
     }
 
     public int getRating() {
@@ -82,24 +93,20 @@ public class Review implements Serializable {
         this.rating = rating;
     }
 
-    public String getDescription() {
-        return description;
+    public String getComment() {
+        return comment;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    @Override
-    public String toString() {
-        return "Review{" +
-                "reviewId=" + reviewId +
-                ", user=" + user +
-                ", handyman=" + handyman +
-                ", reviewTime=" + reviewTime +
-                ", rating=" + rating +
-                ", description='" + description + '\'' +
-                '}';
+    public LocalDateTime getReviewDateTime() {
+        return reviewDateTime;
+    }
+
+    public void setReviewDateTime(LocalDateTime reviewDateTime) {
+        this.reviewDateTime = reviewDateTime;
     }
 }
 
