@@ -8,6 +8,7 @@ import com.example.backend.model.User;
 import com.example.backend.service.BookingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
+    @Autowired
     private final BookingsService bookingsService;
     private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 
@@ -68,13 +70,32 @@ public class BookingController {
     @PostMapping("/add")
     public ResponseEntity<?> addBooking(@RequestBody BookingRequest bookingRequest) {
         try {
-            Bookings booking=bookingsService.addBooking(bookingRequest);
+            Bookings booking = bookingsService.addBooking(bookingRequest);
             return new ResponseEntity<>(booking, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Error adding booking: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @GetMapping("/confirm-booking/{bookingId}")
+    public ResponseEntity<String> confirmBooking(@PathVariable Integer bookingId) {
+        try {
+            bookingsService.confirmBooking(bookingId);
+            return new ResponseEntity<>("Booking confirmed successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error confirming booking: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/decline-booking/{bookingId}")
+    public ResponseEntity<String> declineBooking(@PathVariable Integer bookingId) {
+        try {
+            bookingsService.declineBooking(bookingId);
+            return new ResponseEntity<>("Booking declined successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error declining booking: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @PutMapping("/update/{bookingId}")
     public ResponseEntity<Bookings> updateBookings( @PathVariable Integer bookingId,@RequestBody Bookings bookings){
         Bookings updateBookings =bookingsService.updateBookings(bookingId,bookings);

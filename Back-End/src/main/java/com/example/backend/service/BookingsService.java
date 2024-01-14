@@ -8,6 +8,7 @@ import com.example.backend.model.Bookings;
 import com.example.backend.model.*;
 import com.example.backend.repo.BookingRepo;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class BookingsService {
     private final BookingRepo bookingRepo;
+    @Autowired
+    private EmailService emailService;
     private final HandymanService handymanService; // Inject HandymanService
     private final UserService userService; // Inject UserService
     private final ServicesService servicesService; // Inject ServicesService
@@ -46,10 +49,51 @@ public class BookingsService {
         booking.setService(service);
         booking.setBookingTime(LocalDateTime.now()); // You can replace this with the actual booking time from the request
         booking.setStatus("pending");
-
+        sendConfirmationEmailToHandyman(handyman.getEmail(), booking);
         // Save the booking to the database
         return bookingRepo.save(booking);
     }
+
+    private void sendConfirmationEmailToHandyman(String handymanEmail, Bookings booking) {
+        String subject = "Booking Confirmation Required";
+        String body = "Dear Handyman, a new booking requires your confirmation.\n" +
+                "Booking for: " + booking.getService().getDescription() + "\n" +
+                "Date: "+booking.getBookingTime()+"\n"+
+                "Please click on the following links to confirm or decline the booking:\n" +
+                "- Accept: http://localhost:8080/api/bookings/confirm-booking/" + booking.getBookingId() + "\n" +
+                "- Decline: http://localhost:8080/api/bookings/decline-booking/" + booking.getBookingId();
+        emailService.sendConfirmationEmail(handymanEmail, subject, body);
+    }
+
+    public void confirmBooking(Integer bookingId) {
+        // Retrieve the booking from the database
+        Optional<Bookings> optionalBooking = bookingRepo.findById(bookingId);
+
+        if (optionalBooking.isPresent()) {
+            Bookings booking = optionalBooking.get();
+            booking.setStatus("Confirmed");
+            bookingRepo.save(booking);
+        } else {
+            // Handle case where the booking is not found
+        }
+    }
+
+    public void declineBooking(Integer bookingId) {
+        // Retrieve the booking from the database
+        Optional<Bookings> optionalBooking = bookingRepo.findById(bookingId);
+
+        if (optionalBooking.isPresent()) {
+            Bookings booking = optionalBooking.get();
+            booking.setStatus("Declined");
+            bookingRepo.save(booking);
+        } else {
+            // Handle case where the booking is not found
+        }
+    }
+
+
+
+
 
     public List<Bookings> findAllBookings(){
         return bookingRepo.findAll();
