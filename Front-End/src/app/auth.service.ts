@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-
+import {Router} from "@angular/router";
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +9,7 @@ export class AuthService {
 
   private _isLoggedIn = false;
   private loginUrl = 'http://localhost:8080/api/user/login';
+
 
   constructor(private http:HttpClient) { }
 
@@ -18,4 +19,7 @@ export class AuthService {
   getClientInfo() {
     return {email: "", id: 0, name: ""};
   }
+
+
+
 }

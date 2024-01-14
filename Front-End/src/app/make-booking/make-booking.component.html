@@ -1,27 +1,53 @@
 <div class="service-selector">
-  <label for="serviceSelect">Select a service:  </label>
+  <label for="serviceSelect">Select a service:</label>
   <select id="serviceSelect" [(ngModel)]="selectedService">
     <option *ngFor="let service of services" [value]="service">{{ service }}</option>
   </select>
-  <!--button (click)="fetchHandymen()">Find Handymen</button-->
   <button (click)="fetchHandymenMocked()">Find Handymen</button>
 </div>
 
 <div class="card-container">
-<div *ngFor="let handyman of handymen" class="card">
-  <img src="./assets/electrician.svg" alt="Handyman image">
-  <h4>{{ handyman.name }}</h4>
-  <p>Email: {{ handyman.email }}</p>
-  <p>Phone: {{ handyman.phoneNumber }}</p>
-  <button class="booking-button" (click)="showConfirmation(handyman)">Make Booking</button>
+  <div *ngFor="let handyman of handymen" class="card" [ngClass]="{'expanded': handyman.isExpanded}">
+    <img src="./assets/electrician.svg" alt="Handyman image">
+    <h4>{{ handyman.name }}</h4>
+    <p>Email: {{ handyman.email }}</p>
+    <p>Phone: {{ handyman.phoneNumber }}</p>
+    <button class="booking-button" (click)="toggleCardExpansion(handyman)">Make a Booking</button>
 
+    <!-- Booking Form Popup -->
+    <div class="booking-popup" [ngClass]="{'visible': handyman.isExpanded}">
+      <!-- Calendar for selecting available dates -->
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="handyman.selectedDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-  <div *ngIf="handyman.showBookingConfirmation" class="confirmation-message">
-    Booking confirmed for {{ handyman.name }}!
-    <a routerLink="/reservations">View Reservations</a>
+      <!-- Dropdown list for services -->
+      <mat-form-field>
+        <mat-label>Select a service</mat-label>
+        <mat-select [(ngModel)]="handyman.selectedServiceType">
+          <mat-option *ngFor="let serviceType of serviceTypes" [value]="serviceType">{{ serviceType }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Time selection between 8am and 6pm -->
+      <mat-form-field>
+        <mat-label>Select a time</mat-label>
+        <mat-select [(ngModel)]="handyman.selectedTime">
+          <mat-option *ngFor="let time of availableTimes" [value]="time">{{ time }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Button to complete the reservation -->
+      <button mat-raised-button color="primary" (click)="submitBookingForm(handyman)">Complete Reservation</button>
+      <button mat-raised-button color="primary" >Cancel</button>
+    </div>
+
+    <!-- Confirmation Message -->
+    <div *ngIf="handyman.showBookingConfirmation" class="confirmation-message">
+      Booking confirmed for {{ handyman.name }}!
+      <a routerLink="/reservations">View Reservations</a>
+    </div>
+  </div>
 </div>
-
-
-</div>
-</div>
-

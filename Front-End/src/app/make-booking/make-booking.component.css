@@ -1,118 +1,154 @@
-/* Add this to your handyman-selector.component.css or equivalent file */
-.card-container {
-  margin: 10px 0;
-}
-
-body, html{
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
-  height: 100vh;
-}
-
-
-.card {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px; /* Add space between cards */
-  border-radius: 5px;
-  background-color: #fff; /* Optional: for better readability */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds subtle shadow for depth */
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions for hover effects */
-}
-.card:hover {
-  transform: translateY(-5px); /* Slight lift effect on hover */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Increased shadow for lifted effect */
-}
-
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns in each row */
-  gap: 3px; /* Space between cards */
-  margin: 5px 3px;
-}
-
-.card {
-  width: 80%; /* Each card takes up the full column width */
+/* General styles */
+* {
   box-sizing: border-box;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #fff;
-  text-align: center;
 }
 
-.card img {
-  max-width: 100%;
-  height: auto;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  height: 100%;
 }
 
-.card h4 {
-  font-size: 16px;
-  margin-top: 10px; /* Space between name and other info */
-}
-
-.card p {
-  font-size: 14px;
-}
-
-
+/* Service selector styles */
 .service-selector {
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between items */
-  margin-bottom: 13px; /* Space below the selector */
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.service-selector label {
-  font-size: 16px; /* Larger font for the label */
-  margin-right: 10px; /* Space between label and select */
-}
-
-
-.service-selector select {
-  padding: 5px 10px;
+.service-selector label,
+.service-selector select,
+.service-selector button {
   font-size: 16px;
-  font-weight: bold;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  appearance: none; /* Removes default styles */
-  -webkit-appearance: none; /* Specific for Safari */
-  -moz-appearance: none; /* Specific for Firefox */
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  cursor: pointer;
 }
 
 .service-selector button {
-  padding: 5px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
+  padding: 10px 15px;
   background-color: #2c3e50;
   color: white;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border-radius: 4px;
 }
 
 .service-selector button:hover {
-  background-color: #2c3e50;
+  background-color: #345678;
 }
 
+/* Card container styles */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
 
+.card {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: white;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative; /* Ensures that the z-index is applied correctly */
+  z-index: 2; /* Make sure this is less than the z-index of the popup */
+}
+
+.card img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.card h4,
+.card p {
+  margin: 10px 0;
+}
+
+/* Booking button inside the card */
 .booking-button {
-  padding: 5px 20px;
-  font-size: 14px; /* Adjust the font size as needed */
-  background-color: #2c3e50;
+  padding: 10px 15px;
+  background-color: #f8c102;
   color: white;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px; /* Add space between text and button */
+  border-radius: 4px;
+  position: absolute;
+  bottom: 45px;
+  left: 15px;
+  right: 15px;
 }
 
 .booking-button:hover {
-  background-color: #2c3e50;
+  background-color: #ffc107;
 }
+
+/* Booking popup styles */
+.booking-popup {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in the same place regardless of scrolling */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  max-width: 600px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  z-index: 1001; /* Higher than any other z-index to ensure it's on top */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.booking-popup.visible {
+  display: grid;
+  flex-direction: column;
+}
+
+/* Form field styles */
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Confirm button inside the popup */
+button.mat-raised-button {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button.mat-raised-button:hover {
+  background-color: #66BB6A;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-popup {
+    width: 90%;
+    max-width: 90%; /* Ensures it doesn't get too wide on small screens */
+  }
+}
+
+/* Additional styles for fixed elements */
+body > .booking-popup {
+  position: fixed; /* Ensures the popup is always fixed to the body */
+}
+
+.service-selector select:focus {
+  position: relative; /* Position relative to ensure stability */
+  z-index: 10; /* High z-index to keep it on top while selected */
+}
+

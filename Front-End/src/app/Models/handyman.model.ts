@@ -5,6 +5,11 @@ import {Injectable} from "@angular/core";
 
 
 export interface Handyman {
+  selectedServiceType?: string;
+  selectedDate?: string;
+  selectedTime?: string;
+  id: number;
+  isExpanded: boolean;
   showBookingConfirmation: any;
   handymanId: number;
   name: string;

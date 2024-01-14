@@ -1,0 +1,66 @@
+.requests-container {
+  padding: 20px;
+  background-color: #f9f9f9; /* Light grey background for the container */
+  border-radius: 8px; /* Rounded corners for the container */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  max-width: 600px; /* Limit the width of the container */
+  margin: auto; /* Center the container */
+}
+
+.request-list {
+  border: 1px solid #ddd; /* Lighter border color */
+  padding: 10px;
+  list-style: none; /* Remove default list styling */
+}
+
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  transition: background-color 0.3s;
+}
+
+.request-item:hover {
+  background-color: #f0f0f0; /* Slight highlight on hover */
+}
+
+.request-details {
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.request-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.accept-button, .decline-button {
+  padding: 5px 10px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.accept-button {
+  background-color: #4CAF50; /* Green */
+}
+
+.decline-button {
+  background-color: #f44336; /* Red */
+}
+
+.accept-button:hover, .decline-button:hover {
+  opacity: 0.85;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
