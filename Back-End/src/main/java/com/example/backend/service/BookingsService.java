@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.DOT.BookingRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.backend.exception.UserNotFoundException;
@@ -32,34 +33,19 @@ public class BookingsService {
     }
 
 
-    public Bookings addBooking(Bookings bookingRequest) {
+    public Bookings addBooking(BookingRequest bookingRequest) {
+        // Fetch user, handyman, and service entities from the database
+        User user = userService.findUserById(bookingRequest.getUserId());
+        Handyman handyman = handymanService.findHandymanById(bookingRequest.getHandymanId());
+        Services service = servicesService.findServicesById(bookingRequest.getServiceId());
 
-        logger.info("Received booking request - User: {}, Handyman: {}, Service: {}, Booking Time: {}, Status: {}",
-                bookingRequest.getUser(),
-                bookingRequest.getHandyman(),
-                bookingRequest.getService(),
-                bookingRequest.getBookingTime(),
-                bookingRequest.getStatus());
-
-        // Create a new booking
-        // Set Handyman, Customer, Service, and Booking Time
-        int handymanId = bookingRequest.getHandyman().getId();
-        logger.info("Attempting to find Handyman by ID----: {}", handymanId);
-        Handyman handyman = handymanService.findHandymanById(handymanId);
-        logger.info("Found Handyman: {}", handyman);
-        // Fetch Handyman, User, and Service entities from the database based on provided IDs
-
-        User user = userService.findUserById(bookingRequest.getUser().getUser_id());
-        Services service = servicesService.findServicesById(bookingRequest.getService().getService_Id());
-
-        // Create a new booking
+        // Create a new Booking entity
         Bookings booking = new Bookings();
-
-        // Set Handyman, Customer, Service, and Booking Time
-        booking.setHandyman(handymanService.findHandymanById(bookingRequest.getHandyman().getId()));
         booking.setUser(user);
+        booking.setHandyman(handyman);
         booking.setService(service);
-        booking.setBookingTime(LocalDateTime.now()); // You can adjust this based on your requirements
+        booking.setBookingTime(LocalDateTime.now()); // You can replace this with the actual booking time from the request
+        booking.setStatus("pending");
 
         // Save the booking to the database
         return bookingRepo.save(booking);

@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.DOT.BookingRequest;
 import com.example.backend.model.Bookings;
 import com.example.backend.model.Handyman;
 import com.example.backend.model.Services;
@@ -65,14 +66,13 @@ public class BookingController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Bookings> addBookings(@RequestBody Bookings bookings){//debuging kutnik
-        logger.info("Received JSON Payload: {}", bookings);
-        logger.info("Extracted User ID: {}", bookings.getUser().getUser_id());
-        logger.info("Extracted Handyman ID: {}", bookings.getHandyman().getId());
-        logger.info("Extracted Service ID: {}", bookings.getService().getService_Id());
-
-        Bookings newBookings =bookingsService.addBooking(bookings);
-        return new ResponseEntity<>(newBookings, HttpStatus.CREATED);
+    public ResponseEntity<?> addBooking(@RequestBody BookingRequest bookingRequest) {
+        try {
+            Bookings booking=bookingsService.addBooking(bookingRequest);
+            return new ResponseEntity<>(booking, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error adding booking: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/update/{bookingId}")
