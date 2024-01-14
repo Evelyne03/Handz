@@ -1,17 +1,24 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Bookings;
+import com.example.backend.model.Handyman;
+import com.example.backend.model.Services;
+import com.example.backend.model.User;
 import com.example.backend.service.BookingsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
     private final BookingsService bookingsService;
+    private static final Logger logger = LoggerFactory.getLogger(BookingController.class);
 
     public BookingController(BookingsService bookingsService) {
         this.bookingsService = bookingsService;
@@ -30,16 +37,47 @@ public class BookingController {
         Bookings bookings = bookingsService.findBookingsById(booking_id);
         return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
+    @PostMapping("/add/{userId}/{handymanId}/{serviceId}")
+    public ResponseEntity<Bookings> addBookingFromParameters(
+            @PathVariable Integer userId,
+            @PathVariable Integer handymanId,
+            @PathVariable Integer serviceId) {
+
+        // You can create a Booking object with the extracted parameters
+
+
+        // Call the service to add the booking
+        Bookings savedBooking = bookingsService.add123Booking(userId,handymanId,serviceId);
+
+        return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/status/{bookingId}")
+    public ResponseEntity<String> getBookingStatus(@PathVariable Integer bookingId) {
+        String status = bookingsService.getBookingStatus(bookingId);
+
+        if (status != null) {
+            return ResponseEntity.ok(status);
+        } else {
+            // Handle the case where the booking with the given ID is not found
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PostMapping("/add")
-    public ResponseEntity<Bookings> addBookings(@RequestBody Bookings bookings){
+    public ResponseEntity<Bookings> addBookings(@RequestBody Bookings bookings){//debuging kutnik
+        logger.info("Received JSON Payload: {}", bookings);
+        logger.info("Extracted User ID: {}", bookings.getUser().getUser_id());
+        logger.info("Extracted Handyman ID: {}", bookings.getHandyman().getId());
+        logger.info("Extracted Service ID: {}", bookings.getService().getService_Id());
+
         Bookings newBookings =bookingsService.addBooking(bookings);
         return new ResponseEntity<>(newBookings, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Bookings> updateBookings(@RequestBody Bookings bookings){
-        Bookings updateBookings =bookingsService.updateBookings(bookings);
+    @PutMapping("/update/{bookingId}")
+    public ResponseEntity<Bookings> updateBookings( @PathVariable Integer bookingId,@RequestBody Bookings bookings){
+        Bookings updateBookings =bookingsService.updateBookings(bookingId,bookings);
         return new ResponseEntity<>(updateBookings, HttpStatus.OK);
     }
 
