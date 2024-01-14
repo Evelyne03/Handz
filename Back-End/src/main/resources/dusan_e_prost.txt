@@ -55,8 +55,14 @@
   "handymanId": 1,
   "serviceId": 2
 }
-//se leaga Handy men ul cu id 1 de serviciul cu id 2
+//se leaga Handy men ul cu id 1 de serviciul cu id 2(gen e ft smecher)
 
+//cum facem un booking? well naspa rau
+//POST http://localhost:8080/api/bookings/add/1/2/1
+
+//fara json dam call la asta si vom avea un booking al user urlui cu id 1 pentru handyman ul cu id ul 2 pentru serviciul
+//cu id ul 1; Statusul se pune automat in pending iar timpul se seteaza pe now;Handyman ul primeste un email pentru a
+//accepta sau da decline la comanda;
 
 
 

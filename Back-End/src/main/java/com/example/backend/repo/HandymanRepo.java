@@ -6,12 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 @Repository
-public interface HandymanRepo extends JpaRepository<Handyman , Integer> {
-
-
+public interface HandymanRepo extends JpaRepository<Handyman, Integer> {
     Optional<Handyman> findByHandymanId(Integer handymanId);
-    Optional<Handyman> findHandymanByHandymanId(int id);
+    Optional<Handyman> findByHandymanId(int id);
     Optional<Handyman> findByEmail(String email);
-
     boolean existsByEmail(String email);
 }

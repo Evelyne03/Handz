@@ -1,50 +1,49 @@
 package com.example.backend.model;
 
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table
-public class Bookings {
+@Table(name = "Bookings")
+public class Bookings implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer bookingId;
 
-    private int bookingId;
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
+
     @ManyToOne
-    @JoinColumn(name = "handymanId", referencedColumnName = "handymanId")
+    @JoinColumn(name = "handyman_id")
     private Handyman handyman;
 
     @ManyToOne
-    @JoinColumn(name = "serviceId", referencedColumnName = "serviceId")
+    @JoinColumn(name = "service_id")
     private Services service;
-    @Column
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonProperty("bookingTime")
     private LocalDateTime bookingTime;
+
+    @JsonProperty("status")
+    private String status;
 
     public Bookings() {
     }
 
-    @Override
-    public String toString() {
-        return "Bookings{" +
-                "bookingId=" + bookingId +
-                ", user=" + user +
-                ", handyman=" + handyman +
-                ", service=" + service +
-                ", bookingTime=" + bookingTime +
-                '}';
-    }
-
-    public int getBookingId() {
+    public Integer getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(int bookingId) {
+    public void setBookingId(Integer bookingId) {
         this.bookingId = bookingId;
     }
 
@@ -80,12 +79,20 @@ public class Bookings {
         this.bookingTime = bookingTime;
     }
 
-    public Bookings(int bookingId, User user, Handyman handyman, Services service,
-                    LocalDateTime bookingTime) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Bookings(Integer bookingId, User user, Handyman handyman, Services service, LocalDateTime bookingTime, String status) {
         this.bookingId = bookingId;
         this.user = user;
         this.handyman = handyman;
         this.service = service;
         this.bookingTime = bookingTime;
+        this.status = status;
     }
 }

@@ -77,8 +77,8 @@ public class HandymanService {
     }
 
     public Handyman findHandymanById(int id){
-        return handymanRepo.findHandymanByHandymanId(id)
-                .orElseThrow(() -> new UserNotFoundException("Handymen by id:"+id+" was not found"));
+        return handymanRepo.findByHandymanId(id)
+                .orElseThrow(() -> new UserNotFoundException("Handymen by id:"+id+" wasssssssss not found"));
     }
 
     public Handyman findHandymanByEmail(String email){

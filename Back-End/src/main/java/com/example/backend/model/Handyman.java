@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Handymans")
+@JsonIgnoreProperties("bookings") // Add this line to break the loop
 public class Handyman implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
