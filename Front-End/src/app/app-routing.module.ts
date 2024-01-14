@@ -10,6 +10,13 @@ import {MakeBookingComponent} from "./make-booking/make-booking.component";
 import {HistoryComponent} from "./history/history.component";
 import {SettingsComponent} from "./settings/settings.component";
 
+import { HandymanProfileComponent } from "./handyman-profile/handyman-profile.component";
+import { RequestsComponent } from "./handyman-profile/requests/requests.component";
+import {ProfileComponent} from "./handyman-profile/profile/profile.component";
+import { HandymanHistoryComponent } from "./handyman-profile/history/history.component";
+import { HandymanSettingsComponent } from "./handyman-profile/settings/settings.component";
+
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },  // Assuming you have a login path
@@ -19,10 +26,23 @@ const routes: Routes = [
       { path: 'booking', component: MakeBookingComponent },
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'history', component: HistoryComponent, pathMatch: 'full' },
-      { path: 'settings', component: SettingsComponent, pathMatch: 'full' }
+      { path: 'settings', component: SettingsComponent, pathMatch: 'full' },
 
-    ] }
+    ] },
+
+  {
+    path: 'handyman-profile',component: HandymanProfileComponent,
+    children: [
+      { path: 'profile', component: ProfileComponent },
+      { path: 'requests', component: RequestsComponent },
+      { path: 'history', component: HandymanHistoryComponent },
+      { path: 'settings', component: HandymanSettingsComponent },
+
+      // ... other child routes ...
+    ]
+  },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

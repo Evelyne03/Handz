@@ -4,8 +4,7 @@
   padding: 0;
   box-sizing: border-box; /* Ensures padding does not affect the total width or height of an element */
 }
-
-body {
+html, body {
   background-image: url('/assets/welcome_background.png');
   background-size: cover; /* Ensures the image covers the entire viewport */
   background-repeat: no-repeat;
@@ -24,32 +23,42 @@ body {
   size: 4in 6in;
   padding: 0;
 }
-/* Style the client container to fill the available space and center its children */
+
+body {
+  background-position: 30% center; /* Image positioned 100px from the left and centered vertically */
+  min-height: 100vh; /* Ensure minimum height is the full height of the viewport */
+  padding-bottom: 50px;
+  overflow-x: hidden;
+  height: 900vh; /* Expand html and body to the viewport's height */
+  width: 100vw; /* Expand html and body to the viewport's width */
+  max-height: 200vh; /* Ensure html and body don't expand past the viewport's height */
+  margin-top: -50px;
+  margin-left: -30px;
+  margin-right: -200px;
+  position: fixed;
+  size: 4in 6in;
+  overflow-x: hidden;
+}
+
 .client-container {
-  display: flex; /* Use flexbox to center the content vertically and horizontally */
-  justify-content: start; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  text-align: center;
-  height: 100vh; /* Ensure the container fills the remaining vertical space */
-  width: 30vw; /* Constrain the container to the viewport's width */
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  transform: none;
-  position: absolute;
-  overflow: hidden;
-  margin-left: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative; /* Relative positioning as a reference for absolute children */
 }
 
 .welcome-box {
-  /* Centering the welcome box if it's not the only element in .client-container */
-  margin: auto; /* This auto margin trick works when the element is a flex item */
-  /* Ensure the welcome box itself has no offsetting margins */
-  margin: 0;
-  /* Optional: Set a max-width if the box shouldn't stretch too wide */
-  max-width: 300px; /* Adjust as needed */
-  position: absolute;
+  width: 30%; /* Adjusted width */
+  padding: 10px;
+  background-color: #2F4F4F;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: fixed; /* Absolute position within client-container */
+  top: 50%; /* Start at the exact vertical center */
+  left: 57%; /* Start at the exact horizontal center */
+  transform: translate(-50%, -50%) translateY(-20px); /* Shift upwards */
 }
 
 /* Additional styles for the client content */

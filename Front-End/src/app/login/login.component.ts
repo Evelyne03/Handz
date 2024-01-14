@@ -65,8 +65,6 @@ export class LoginComponent implements OnInit {
           }
         )
 
-
-
       } else {
         console.log('Invalid credentials');
         console.log(form.value);

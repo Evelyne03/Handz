@@ -2,10 +2,11 @@
   <div class="dashboard">
     <nav class="dashboard-menu">
       <ul>
-        <li> <button class="full-width-button" [routerLink]="'/client-info/booking'">Make a Booking</button></li>
-        <li><button class="full-width-button" [routerLink]="'/client-info/profile'">Profile</button></li>
-        <li><button class="full-width-button" [routerLink]="'/client-info/history'">My bokings</button></li>
-        <li><button class="full-width-button" [routerLink]="'/client-info/settings'">Settings</button></li>
+        <a><li><button class="full-width-button" [routerLink]="'/client-info/profile'">Profile</button></li></a>
+        <a><li> <button class="full-width-button" [routerLink]="'/client-info/booking'">Make a Booking</button></li></a>
+        <a><li><button class="full-width-button" [routerLink]="'/client-info/history'">My bookings</button></li></a>
+        <a><li><button class="full-width-button" [routerLink]="'/client-info/settings'">Settings</button></li></a>
+        <li><button class = "full-width-button"><a href="http://localhost:4200">Logout</a></button></li>
       </ul>
     </nav>
     <div class="dashboard-content">

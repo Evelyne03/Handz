@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule} from "@angular/forms";
+import { Component } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+  styleUrl: './settings.component.css'
 })
-export class SettingsComponent implements OnInit {
+export class HandymanSettingsComponent {
   settingsForm!: FormGroup;
-
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -33,3 +31,5 @@ export class SettingsComponent implements OnInit {
   }
 
 }
+
+

@@ -8,6 +8,12 @@ import { AuthService } from './auth.service';
 import { Component} from "@angular/core";
 
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgxTimepickerModule } from "ngx-timepicker";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +35,11 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { RouterModule } from "@angular/router";
 import { HistoryComponent } from './history/history.component';
 import { SettingsComponent } from './settings/settings.component';
+import { HandymanProfileComponent } from './handyman-profile/handyman-profile.component';
+import { ProfileComponent } from './handyman-profile/profile/profile.component';
+import { RequestsComponent } from './handyman-profile/requests/requests.component';
+import { HandymanHistoryComponent} from "./handyman-profile/history/history.component";
+import { HandymanSettingsComponent } from './handyman-profile/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +53,11 @@ import { SettingsComponent } from './settings/settings.component';
     ConfirmationDialogComponent,
     HistoryComponent,
     SettingsComponent,
+    HandymanProfileComponent,
+    ProfileComponent,
+    RequestsComponent,
+    HandymanHistoryComponent,
+    HandymanSettingsComponent,
 
   ],
     imports: [
@@ -56,7 +72,13 @@ import { SettingsComponent } from './settings/settings.component';
         CommonModule,
         FormsModule,
         MatDialogModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        NgxTimepickerModule,
     ],
   providers: [AuthService, MesterComponent],
   bootstrap: [AppComponent]
