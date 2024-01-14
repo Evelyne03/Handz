@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.DOT.ReviewRequest;
 import com.example.backend.model.Review;
 import com.example.backend.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,14 @@ public class ReviewController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
-    public ResponseEntity<Review> addReview(@RequestBody Review review) {
-        Review addedReview = reviewService.addReview(review);
-        return new ResponseEntity<>(addedReview, HttpStatus.CREATED);
+    @PostMapping("/add")
+    public ResponseEntity<?> addReview(@RequestBody ReviewRequest reviewRequest) {
+        try {
+            Review review= reviewService.addReview1(reviewRequest);
+            return new ResponseEntity<>(review, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error adding review: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @DeleteMapping("/{reviewId}")

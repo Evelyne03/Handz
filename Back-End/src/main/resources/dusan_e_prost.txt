@@ -64,5 +64,22 @@
 //cu id ul 1; Statusul se pune automat in pending iar timpul se seteaza pe now;Handyman ul primeste un email pentru a
 //accepta sau da decline la comanda;
 
+//POST http://localhost:8080/api/bookings/add  -fixed
+json:
+{
+    "userId":1,
+    "handymanId":2,
+    "serviceId":2
+}
+
+//for reviews:
+//POST: http://localhost:8080/api/reviews/add
+{
+    "userId":1,
+    "serviceId":2,
+    "handymanId":2,
+    "rating":4,
+    "comment":"Happy with this man's work"
+}
 
 

@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 
+import com.example.backend.DOT.ReviewRequest;
 import com.example.backend.model.Handyman;
 import com.example.backend.model.Review;
 import com.example.backend.model.Services;
@@ -13,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,15 @@ public class ReviewService {
     @Autowired
     private ServiceRepo serviceRepository;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private HandymanService handymanService;
+
+    @Autowired
+    private ServicesService servicesService;
+
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
     }
@@ -38,6 +49,26 @@ public class ReviewService {
     public Optional<Review> getReviewById(int reviewId) {
         return reviewRepository.findById(reviewId);
     }
+
+    public Review addReview1(ReviewRequest reviewRequest) {
+        // Fetch user, handyman, and service entities from the database
+        User user = userService.findUserById(reviewRequest.getUserId());
+        Handyman handyman = handymanService.findHandymanById(reviewRequest.getHandymanId());
+        Services service = servicesService.findServicesById(reviewRequest.getServiceId());
+
+        // Create a new Review entity
+        Review review = new Review();
+        review.setUser(user);
+        review.setHandyman(handyman);
+        review.setService(service);
+        review.setRating(reviewRequest.getRating());
+        review.setComment(reviewRequest.getComment());
+        review.setReviewDateTime(LocalDateTime.now());
+
+        // Save the review to the database
+        return reviewRepository.save(review);
+    }
+
 
     public Review addReview(Review review) {
         // Check and save Handyman if not yet persisted
