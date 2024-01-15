@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Handyman } from "../Models/handyman.model";
 import { MatDialog } from "@angular/material/dialog";
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ComponentType } from '@angular/cdk/portal';
+import { MatDialogModule} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-make-booking',
@@ -15,13 +18,28 @@ export class MakeBookingComponent implements OnInit {
   serviceTypes: string[] = ['Change Light Bulb', 'Repair Cables'];
   availableTimes: string[] = [];
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  constructor(private http: HttpClient, private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.initializeAvailableTimes();
   }
 
+  toggleBookingForm(handyman: any) {
+    handyman.isExpanded = !handyman.isExpanded; // This toggles the isExpanded property
+  }
 
+
+
+  @ViewChild('confirmationDialog') confirmationDialog!: TemplateRef<any>;
+
+
+  completeReservation(handyman: any): void {
+    this.dialog.open(this.confirmationDialog);
+
+    // Remove the handyman from the list
+    this.handymen = this.handymen.filter(h => h !== handyman);
+  }
 
   preventGlitch(event: Event): void {
     event.preventDefault();
