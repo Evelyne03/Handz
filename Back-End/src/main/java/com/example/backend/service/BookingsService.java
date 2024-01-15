@@ -47,49 +47,17 @@ public class BookingsService {
         booking.setUser(user);
         booking.setHandyman(handyman);
         booking.setService(service);
-        booking.setBookingTime(LocalDateTime.now()); // You can replace this with the actual booking time from the request
+        booking.setBookingTime(bookingRequest.getBookingTime()); // You can replace this with the actual booking time from the request
         booking.setStatus("pending");
-        sendConfirmationEmailToHandyman(handyman.getEmail(), booking);
+
         // Save the booking to the database
         return bookingRepo.save(booking);
     }
 
-    private void sendConfirmationEmailToHandyman(String handymanEmail, Bookings booking) {
-        String subject = "Booking Confirmation Required";
-        String body = "Dear Handyman, a new booking requires your confirmation.\n" +
-                "Booking for: " + booking.getService().getDescription() + "\n" +
-                "Date: "+booking.getBookingTime()+"\n"+
-                "Please click on the following links to confirm or decline the booking:\n" +
-                "- Accept: http://localhost:8080/api/bookings/confirm-booking/" + booking.getBookingId() + "\n" +
-                "- Decline: http://localhost:8080/api/bookings/decline-booking/" + booking.getBookingId();
-        emailService.sendConfirmationEmail(handymanEmail, subject, body);
-    }
 
-    public void confirmBooking(Integer bookingId) {
-        // Retrieve the booking from the database
-        Optional<Bookings> optionalBooking = bookingRepo.findById(bookingId);
 
-        if (optionalBooking.isPresent()) {
-            Bookings booking = optionalBooking.get();
-            booking.setStatus("Confirmed");
-            bookingRepo.save(booking);
-        } else {
-            // Handle case where the booking is not found
-        }
-    }
 
-    public void declineBooking(Integer bookingId) {
-        // Retrieve the booking from the database
-        Optional<Bookings> optionalBooking = bookingRepo.findById(bookingId);
 
-        if (optionalBooking.isPresent()) {
-            Bookings booking = optionalBooking.get();
-            booking.setStatus("Declined");
-            bookingRepo.save(booking);
-        } else {
-            // Handle case where the booking is not found
-        }
-    }
 
 
 
@@ -146,5 +114,16 @@ public class BookingsService {
 
 
         return bookingRepo.save(newBooking);
+    }
+
+    public void confirmBooking(Integer bookingId) {
+        Bookings booking = findBookingsById(bookingId);
+        booking.setStatus("accepted");
+
+    }
+
+    public void declineBooking(Integer bookingId) {
+        Bookings booking = findBookingsById(bookingId);
+        booking.setStatus("declined");
     }
 }

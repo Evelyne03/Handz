@@ -45,4 +45,8 @@ public class UserService {
     public boolean existsByEmail(String email) {
         return userRepo.existsByEmail(email);
     }
+
+    public void changePassword(int userId, String newPassword) {
+        findUserById(userId).setPassword(newPassword);
+    }
 }

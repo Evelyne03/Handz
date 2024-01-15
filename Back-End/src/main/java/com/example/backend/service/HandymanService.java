@@ -114,4 +114,8 @@ public class HandymanService {
     public boolean existsByEmail(String email) {
         return handymanRepo.existsByEmail(email);
     }
+
+    public void changePassword(int handymanId, String newPassword) {
+        findHandymanById(handymanId).setPassword(newPassword);
+    }
 }

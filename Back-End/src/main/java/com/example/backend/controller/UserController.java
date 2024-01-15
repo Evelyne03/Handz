@@ -43,7 +43,11 @@ public class UserController {
         User newUser =userService.addUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
-
+    @PutMapping("/change_password/{userId}")
+    public ResponseEntity<?> changePassswordToUser(@PathVariable int userId,@RequestBody String newPassword){
+        userService.changePassword(userId,newPassword);
+        return new ResponseEntity<>("Password changed succesfully",HttpStatus.OK);
+    }
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user){
         User updateUser =userService.updateUser(user);

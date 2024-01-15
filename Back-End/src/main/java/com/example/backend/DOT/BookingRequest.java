@@ -1,9 +1,13 @@
 package com.example.backend.DOT;
 
+import java.time.LocalDateTime;
+
 public class BookingRequest {
     private Integer userId;
     private Integer serviceId;
     private Integer handymanId;
+
+    private LocalDateTime bookingTime;
 
     public Integer getUserId() {
         return userId;
@@ -11,6 +15,14 @@ public class BookingRequest {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public LocalDateTime getBookingTime() {
+        return bookingTime;
+    }
+
+    public void setBookingTime(LocalDateTime bookingTime) {
+        this.bookingTime = bookingTime;
     }
 
     public Integer getServiceId() {

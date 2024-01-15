@@ -69,7 +69,8 @@ json:
 {
     "userId":1,
     "handymanId":2,
-    "serviceId":2
+    "serviceId":2,
+    "bookingTime":"2022-01-15T12:30:00 "
 }
 
 //for reviews:

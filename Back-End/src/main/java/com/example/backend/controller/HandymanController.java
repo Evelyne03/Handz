@@ -56,6 +56,11 @@ public class HandymanController {
 
         return new ResponseEntity<>(newHandyman, HttpStatus.CREATED);
     }
+    @PutMapping("/change_password/{handymanId}")
+    public ResponseEntity<?> changePassswordToHandyman(@PathVariable int handymanId,@RequestBody String newPassword){
+        handymanService.changePassword(handymanId,newPassword);
+        return new ResponseEntity<>("Password changed succesfully",HttpStatus.OK);
+    }
     @PostMapping("/{handymanId}/addService")
     public ResponseEntity<Handyman> addCreatedServiceToHandyman(@PathVariable int handymanId, @RequestBody Services service) {
         Handyman updatedHandyman = handymanService.addCreatedServiceToHandyman(handymanId, service);
