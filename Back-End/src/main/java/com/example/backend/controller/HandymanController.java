@@ -19,6 +19,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/handyman")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class HandymanController {
     private final HandymanService handymanService;
     public HandymanController(HandymanService handymanService) {

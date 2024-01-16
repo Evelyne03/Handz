@@ -32,4 +32,12 @@
       }
     ]
   }
+  {
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "password": "strongpassword456",
+      "imageURL": "https://example.com/janesmith.jpg",
+      "phoneNumber": 123456789,
+      "bookings": []
+   }
 ]
