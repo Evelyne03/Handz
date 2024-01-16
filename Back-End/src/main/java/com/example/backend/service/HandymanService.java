@@ -114,4 +114,8 @@ public class HandymanService {
     public boolean existsByEmail(String email) {
         return handymanRepo.existsByEmail(email);
     }
+
+    public List<Handyman> findExpertiseHandyman(String expertise) {
+        return handymanRepo.findByServiceExpertise(expertise);
+    }
 }
