@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       if (userData) {
         console.log("merge aci");
         this.user.setUser(userData);
-        console.log("HandymanData is: ", userData)
+        console.log("UserData is: ", userData)
         this.router.navigate(['/client-info']);
         this.dialog.closeAll();
       } else {

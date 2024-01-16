@@ -5,6 +5,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatDialogModule} from "@angular/material/dialog";
+import { Service } from '../Models/service.model';
 
 @Component({
   selector: 'app-make-booking',
@@ -15,7 +16,8 @@ export class MakeBookingComponent implements OnInit {
   services = ['Plumber', 'Electrician', 'Locksmith'];
   selectedService = '';
   handymen: Handyman[] = [];
-  serviceTypes: string[] = ['Change Light Bulb', 'Repair Cables'];
+  //serviceTypes: string[] = ['Change Light Bulb', 'Repair Cables'];
+  serviceTypes: Service[] = [];
   availableTimes: string[] = [];
 
   constructor(private http: HttpClient, private dialog: MatDialog) {
@@ -53,6 +55,12 @@ export class MakeBookingComponent implements OnInit {
       // Include half-hour intervals if needed
       // this.availableTimes.push(`${hour}:30`);
     }
+  }
+
+  fetchServicesMocked(handymanId:number):void {
+    this.http.get<Service[]>('http://localhost:8080/api/services/all/'+handymanId).subscribe(data => {
+      this.serviceTypes = data;
+    });
   }
 
   fetchHandymenMocked(): void {

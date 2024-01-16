@@ -24,13 +24,16 @@ public class ServiceController {
     public List<Services> getAllServices() {
         return servicesService.getAllServices();
     }
-    
+    @GetMapping("/all/{handymanId}")
+    public List<Services> getAllServices(@PathVariable("handymanId")int handymanId) {
+        return servicesService.getAllServicesByHandymanId(handymanId);
+    }
     @GetMapping("/find/{id}")
     public ResponseEntity<Services> getServicesById(@PathVariable("id") int id){
         Services services = servicesService.findServicesById(id);
         return new ResponseEntity<>(services, HttpStatus.OK);
     }
-    @PostMapping("/{handymanId}/add")//this adds a service to our user but it also adds the service in the database,kinder bueno 2 in 1
+    @PostMapping("/{handymanId}/add")//this adds a service to our handyman but it also adds the service in the database,kinder bueno 2 in 1
     public ResponseEntity<Services> addServiceToHandyman(@RequestBody Services service, @PathVariable int handymanId) {
         Services savedService = servicesService.addService(service, handymanId);
         return new ResponseEntity<>(savedService, HttpStatus.CREATED);
