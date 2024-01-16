@@ -37,7 +37,12 @@ public class HandymanController {
         Handyman handyman = handymanService.findHandymanById(id);
         return new ResponseEntity<>(handyman, HttpStatus.OK);
     }
+    @GetMapping("/{expertise}")
+    public ResponseEntity<?> getHandymanByExpertise(@PathVariable("expertise") String expertise){
+        List<Handyman> handymen = handymanService.findExpertiseHandyman(expertise);
+        return new ResponseEntity<>(handymen,HttpStatus.OK);
 
+    }
     @PostMapping("/add")
     public ResponseEntity<?> addHandyman(@RequestBody Handyman handyman){
         // Check for duplicate email before saving
@@ -55,7 +60,7 @@ public class HandymanController {
                     .body("Error: Handyman could not be created");
         }
 
-        return new ResponseEntity<>(newHandyman, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @PostMapping("/{handymanId}/addService")
     public ResponseEntity<Handyman> addCreatedServiceToHandyman(@PathVariable int handymanId, @RequestBody Services service) {

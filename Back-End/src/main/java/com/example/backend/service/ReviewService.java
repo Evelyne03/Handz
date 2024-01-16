@@ -129,4 +129,8 @@ public class ReviewService {
                 })
                 .orElse(null);
     }
+
+    public List<Review> getAllReviewsByHandymanId(int handymanId) {
+        return reviewRepository.findByHandymanId(handymanId);
+    }
 }
