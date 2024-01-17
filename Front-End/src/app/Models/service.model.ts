@@ -1,6 +1,7 @@
 export interface Service{
   serviceId: number;
-  name: String;
+  expertise: String;
+  availability: String;
   price: number;
-  description: String;
+  description:String;
 }

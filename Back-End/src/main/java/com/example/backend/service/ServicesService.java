@@ -11,7 +11,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,6 +61,15 @@ public class ServicesService {
     public void deleteServices(int id){
         servicesRepo.deleteServicesByServiceId(id);
     }
-    
-    
+
+
+    public List<Services> getAllServicesByHandymanId(int handymanId) {
+        Optional<Handyman> handyman = handymanRepository.findById(handymanId);
+        if (handyman.isPresent()) {
+            return new ArrayList<>(handyman.get().getServices());
+        } else {
+            // Handle the case where the handyman does not exist
+            return new ArrayList<>();
+        }
+    }
 }

@@ -18,4 +18,5 @@ public interface ServiceRepo extends JpaRepository<Services, Integer> {
     Optional<Services> findServicesByServiceId(int id);
 
     void deleteServicesByServiceId(int id);
+
 }

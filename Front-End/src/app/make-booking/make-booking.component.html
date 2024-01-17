@@ -26,8 +26,8 @@
       <!-- Dropdown list for services -->
       <mat-form-field>
         <mat-label>Select a service</mat-label>
-        <mat-select [(ngModel)]="handyman.selectedServiceType">
-          <mat-option *ngFor="let serviceType of serviceTypes" [value]="serviceType">{{ serviceType }}</mat-option>
+        <mat-select [(ngModel)]="handyman.selectedServiceType"(selectionChange)="fetchServicesMocked(handyman.id)">
+          <mat-option *ngFor="let serviceType of serviceTypes" [value]="serviceType">{{ serviceType.description }}</mat-option>
         </mat-select>
       </mat-form-field>
 
