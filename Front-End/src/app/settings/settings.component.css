@@ -1,31 +1,45 @@
-html, body {
-  margin: 200px;
-  padding: 0;
-  height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #fafafa;
+body {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 80vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-position: center;
+  background-color: #fafafa;
+  width: 80vh;
+  margin: auto;
+  top: 40px;
+  left: 10px;
+  position: relative;
 }
 
+html {
+  height: 90vh;
+  margin: 0;
+  padding: 0;
+  background-color: #34495e;
+}
 
 form {
-  width: 350px;
+  padding: 40px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  width: auto;
   padding: 65px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  align-items: center;
-  top: 50%; /* Center vertically at 50% of the viewport height */
-  left: 90%;
-  transform: translate(65%, 10%);
 }
 
 
 form > div {
   margin-bottom: 20px;
 }
+
+
 
 
 label {
@@ -54,7 +68,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 
-button {
+button{
   background-color: #2c3e50;
   color: white;
   padding: 12px 20px;
@@ -78,7 +92,7 @@ button:hover, button:focus {
 
 
 input[type="text"]:hover, input[type="email"]:hover, input[type="password"]:hover {
-  border-color: #999;
+  border-color: #333333;
 }
 
 
@@ -98,12 +112,6 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="password"]:hove
     padding: 10px;
   }
 
-  form {
-    width: 100%;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-
 
   label,
   input[type="text"],
@@ -112,4 +120,6 @@ input[type="text"]:hover, input[type="email"]:hover, input[type="password"]:hove
   button {
     font-size: 0.9em;
   }
+
+
 }

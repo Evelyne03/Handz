@@ -67,11 +67,13 @@ export class MakeBookingComponent implements OnInit {
 
   submitBookingForm(handyman: Handyman): void {
     // Add your booking submission logic here
-    const bookingData =    {
+    const bookingData = {
       serviceType: handyman.selectedServiceType,
       date: handyman.selectedDate,
       time: handyman.selectedTime,
-      handymanId: handyman.id // Replace 'id' with the correct property from your Handyman model
+      handymanId: handyman.id, // Replace 'id' with the correct property from your Handyman model
+      reviewText: handyman.reviewText, // Include the review text
+      starRating: handyman.starRating // Include the star rating
     };
 
     // Here you would send the booking data to your server
