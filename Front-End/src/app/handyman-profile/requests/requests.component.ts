@@ -7,9 +7,21 @@ import { Component } from '@angular/core';
 })
 export class RequestsComponent {
   requests: any[] = [
-    { description: 'Request 1' },
-    { description: 'Request 2' },
-    { description: 'Request 3' }
+    { description: 'Request 10',
+      status: 'Pending',
+      date: '2021-01-01',
+      user: 'User 1',
+      servicetype: 'Service Type 1',
+      time: '10:00 AM'
+    },
+    { description: 'Request 10',
+      status: 'Pending',
+      date: '2021-01-01',
+      user: 'User 1',
+      servicetype: 'Service Type 1',
+      time: '10:00 AM'
+    },
+
   ];
 
   acceptRequest(request: any) {

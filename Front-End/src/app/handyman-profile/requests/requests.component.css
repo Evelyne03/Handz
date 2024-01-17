@@ -1,16 +1,26 @@
+body {
+  display: flex; /* Enables Flexbox */
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  height: 100vh; /* Sets the body height to be exactly the height of the viewport */
+  margin: 0; /* Resets any default margin */
+}
+
 .requests-container {
   padding: 20px;
-  background-color: #f9f9f9; /* Light grey background for the container */
-  border-radius: 8px; /* Rounded corners for the container */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #34495e;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 600px; /* Limit the width of the container */
-  margin: auto; /* Center the container */
+  width: 100%; /* Ensures the container can shrink to fit its contents within the max-width */
+  margin: auto; /* Center the container on the available axis */
 }
 
 .request-list {
-  border: 1px solid #ddd; /* Lighter border color */
+  border: 1px solid #ddd;
   padding: 10px;
-  list-style: none; /* Remove default list styling */
+  list-style: none;
+  background-color: #f9f9f9;
 }
 
 .request-item {
@@ -63,4 +73,5 @@ h2 {
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
+  color: #fff;
 }
