@@ -7,7 +7,6 @@ import { ComponentType } from '@angular/cdk/portal';
 import { MatDialogModule} from "@angular/material/dialog";
 import { Service } from '../Models/service.model';
 
-
 @Component({
   selector: 'app-make-booking',
   templateUrl: './make-booking.component.html',
@@ -57,20 +56,22 @@ export class MakeBookingComponent implements OnInit {
     }
   }
 
-  fetchServicesMocked(handymanId:number):void {
-    this.http.get<Service[]>('http://localhost:8080/api/services/all/'+handymanId).subscribe(data => {
+  fetchServices(handymanID : number): void {
+    console.log("metoda");
+    this.http.get<Service[]>('http://localhost:8080/api/handyman/allServices/'+handymanID).subscribe(data => {
       this.serviceTypes = data;
+      console.log(data);
     });
   }
-
-  fetchHandymenMocked(): void {
-    this.http.get<Handyman[]>('http://localhost:8080/api/handyman/all').subscribe(data => {
+  fetchHandymenMocked(selected : string): void {
+    this.http.get<Handyman[]>('http://localhost:8080/api/handyman/'+selected).subscribe(data => {
       this.handymen = data;
     });
   }
 
   toggleCardExpansion(handyman: Handyman): void {
     handyman.isExpanded = !handyman.isExpanded;
+    this.fetchServices(handyman.id);
   }
 
   submitBookingForm(handyman: Handyman): void {
