@@ -13,6 +13,7 @@
 
 <div class="form-container">
 <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+  <h2>Settings</h2>
   <div>
     <label for="name">Name:<span class="required-star">*</span></label>
     <input type="text" id="name" formControlName="name">

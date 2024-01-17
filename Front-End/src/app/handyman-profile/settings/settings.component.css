@@ -13,6 +13,14 @@ body {
   position: relative;
 }
 
+h2{
+  text-align: center;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
 html {
   height: 90vh;
   margin: 0;
