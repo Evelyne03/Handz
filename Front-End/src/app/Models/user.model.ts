@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 
 export interface User{
-  userId: number,
-  name: string;
-  email: string;
-  password: string;
+  userId: number;
+  name: string|undefined;
+  email: string|undefined;
+  password: string|undefined;
   imageURL: string;
   phoneNumber: number;
 }

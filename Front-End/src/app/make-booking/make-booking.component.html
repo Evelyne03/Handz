@@ -3,7 +3,7 @@
   <select id="serviceSelect" [(ngModel)]="selectedService">
     <option *ngFor="let service of services" [value]="service">{{ service }}</option>
   </select>
-  <button (click)="fetchHandymenMocked()">Find Handymen</button>
+  <button (click)="fetchHandymenMocked(selectedService)">Find Handymen</button>
 </div>
 
 <div class="card-container">
@@ -26,7 +26,7 @@
       <!-- Dropdown list for services -->
       <mat-form-field>
         <mat-label>Select a service</mat-label>
-        <mat-select [(ngModel)]="handyman.selectedServiceType"(selectionChange)="fetchServicesMocked(handyman.id)">
+        <mat-select [(ngModel)]="handyman.selectedServiceType">
           <mat-option *ngFor="let serviceType of serviceTypes" [value]="serviceType">{{ serviceType.description }}</mat-option>
         </mat-select>
       </mat-form-field>

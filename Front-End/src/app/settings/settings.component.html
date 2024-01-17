@@ -38,6 +38,6 @@
     <span *ngIf="settingsForm.get('newPassword')?.touched && settingsForm.get('newPassword')?.invalid" class="required-message">Required field</span>
   </div>
 
-  <button type="submit">Save</button>
+  <button type="submit" (click)="updateUser()">Save</button>
 </form>
 </div>
