@@ -44,6 +44,7 @@ import { ReviewComponent } from './handyman-profile/review/review.component';
 import { StarRatingPipe } from './star-rating.pipe';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,7 @@ import { StarRatingPipe } from './star-rating.pipe';
     HandymanSettingsComponent,
     ReviewComponent,
     StarRatingPipe,
+
 
   ],
     imports: [
@@ -84,6 +86,7 @@ import { StarRatingPipe } from './star-rating.pipe';
         MatSelectModule,
         MatFormFieldModule,
         NgxTimepickerModule,
+        HttpClientModule
     ],
   providers: [AuthService, MesterComponent],
   bootstrap: [AppComponent]

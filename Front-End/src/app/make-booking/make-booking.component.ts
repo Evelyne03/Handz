@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatDialogModule} from "@angular/material/dialog";
 
+
 @Component({
   selector: 'app-make-booking',
   templateUrl: './make-booking.component.html',
@@ -26,7 +27,7 @@ export class MakeBookingComponent implements OnInit {
   }
 
   toggleBookingForm(handyman: any) {
-    handyman.isExpanded = !handyman.isExpanded; // This toggles the isExpanded property
+    handyman.isExpanded = !handyman.isExpanded;
   }
 
 
@@ -37,21 +38,20 @@ export class MakeBookingComponent implements OnInit {
   completeReservation(handyman: any): void {
     this.dialog.open(this.confirmationDialog);
 
-    // Remove the handyman from the list
+
     this.handymen = this.handymen.filter(h => h !== handyman);
   }
 
   preventGlitch(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-    // Add any additional logic you might need here
+
   }
 
   initializeAvailableTimes(): void {
     for (let hour = 8; hour <= 18; hour++) {
       this.availableTimes.push(`${hour}:00`);
-      // Include half-hour intervals if needed
-      // this.availableTimes.push(`${hour}:30`);
+
     }
   }
 
@@ -66,19 +66,18 @@ export class MakeBookingComponent implements OnInit {
   }
 
   submitBookingForm(handyman: Handyman): void {
-    // Add your booking submission logic here
+
     const bookingData = {
       serviceType: handyman.selectedServiceType,
       date: handyman.selectedDate,
       time: handyman.selectedTime,
-      handymanId: handyman.id, // Replace 'id' with the correct property from your Handyman model
-      reviewText: handyman.reviewText, // Include the review text
-      starRating: handyman.starRating // Include the star rating
+      handymanId: handyman.id,
+      reviewText: handyman.reviewText,
+      starRating: handyman.starRating
     };
 
     // Here you would send the booking data to your server
     this.http.post('/api/bookings', bookingData).subscribe(response => {
-      // Process the response here
       handyman.showBookingConfirmation = true;
     });
   }
