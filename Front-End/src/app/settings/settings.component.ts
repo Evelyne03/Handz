@@ -20,15 +20,11 @@ export class SettingsComponent implements OnInit {
       newPassword: ['', Validators.required]
     });
 
-
-    // Optionally, load existing user data here
   }
 
   onSubmit(): void {
     if (this.settingsForm.valid) {
-      // Handle form submission, e.g., update user settings
       console.log(this.settingsForm.value);
-      // Add your service call here
     }
   }
 

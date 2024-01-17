@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="review-header">
+    <h2>Client Reviews</h2>
+  </div>
+  <div *ngFor="let review of reviews" class="review-card">
+    <h3>{{ review.clientName }}</h3>
+    <p>{{ review.date | date:'mediumDate' }}</p>
+    <p>Rating: {{ review.rating | starRating }}</p> <!-- This line uses the starRating pipe -->
+    <p>{{ review.comment }}</p>
+  </div>
+</div>
+
+
+

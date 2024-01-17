@@ -15,6 +15,7 @@ import { RequestsComponent } from "./handyman-profile/requests/requests.componen
 import {ProfileComponent} from "./handyman-profile/profile/profile.component";
 import { HandymanHistoryComponent } from "./handyman-profile/history/history.component";
 import { HandymanSettingsComponent } from "./handyman-profile/settings/settings.component";
+import { ReviewComponent } from "./handyman-profile/review/review.component";
 
 
 
@@ -36,6 +37,7 @@ const routes: Routes = [
       { path: 'profile', component: ProfileComponent },
       { path: 'requests', component: RequestsComponent },
       { path: 'history', component: HandymanHistoryComponent },
+      { path: 'review', component: ReviewComponent},
       { path: 'settings', component: HandymanSettingsComponent },
 
       // ... other child routes ...

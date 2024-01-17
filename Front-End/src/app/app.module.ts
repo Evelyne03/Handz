@@ -40,6 +40,9 @@ import { ProfileComponent } from './handyman-profile/profile/profile.component';
 import { RequestsComponent } from './handyman-profile/requests/requests.component';
 import { HandymanHistoryComponent} from "./handyman-profile/history/history.component";
 import { HandymanSettingsComponent } from './handyman-profile/settings/settings.component';
+import { ReviewComponent } from './handyman-profile/review/review.component';
+import { StarRatingPipe } from './star-rating.pipe';
+
 
 @NgModule({
   declarations: [
@@ -58,6 +61,8 @@ import { HandymanSettingsComponent } from './handyman-profile/settings/settings.
     RequestsComponent,
     HandymanHistoryComponent,
     HandymanSettingsComponent,
+    ReviewComponent,
+    StarRatingPipe,
 
   ],
     imports: [
