@@ -35,6 +35,18 @@ export class LoginComponent implements OnInit {
         console.log('Login failed');
       }
     });
+    this.authService.logindbHandyman(this.userEmail, this.userPassword).subscribe(
+      (userData) => {
+      if (userData) {
+        console.log("merge aci");
+        this.user.setUser(userData);
+        console.log("UserData is: ", userData)
+        this.router.navigate(['/handyman-profile/profile']);
+        this.dialog.closeAll();
+      } else {
+        console.log('Login failed');
+      }
+    });
   }
 
 
@@ -56,10 +68,21 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
 
     if (this.userEmail && this.userPassword) {
-      const isLoginSuccess = this.authService.logindb(this.userEmail, this.userPassword);
-
-      if (isLoginSuccess) {
+      const isULoginSuccess = this.authService.logindb(this.userEmail, this.userPassword);
+      const isHLoginSuccess = this.authService.logindbHandyman(this.userEmail,this.userPassword);
+      if (isULoginSuccess) {
         this.authService.logindb(this.userEmail, this.userPassword).subscribe(
+          data =>{
+            //console.log('Login succesfully', data)
+          }
+        )
+
+      } else {
+        console.log('Invalid credentials');
+        console.log(form.value);
+      }
+      if (isHLoginSuccess) {
+        this.authService.logindbHandyman(this.userEmail, this.userPassword).subscribe(
           data =>{
             //console.log('Login succesfully', data)
           }

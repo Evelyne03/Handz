@@ -98,19 +98,9 @@ public class BookingsService {
     public List<Bookings> findAllBookings(){
         return bookingRepo.findAll();
     }
-    public Bookings updateBookings(Integer bookingId,Bookings bookingRequest){
+    public Bookings updateBookings(Bookings bookingRequest){
 
-        Bookings existingBooking = bookingRepo.findById(bookingId)
-                .orElseThrow(() -> new EntityNotFoundException("Booking not found with id: " + bookingId));
-
-        // Update Handyman, Customer, Service, and Booking Time
-        existingBooking.setHandyman(bookingRequest.getHandyman());
-        existingBooking.setUser(bookingRequest.getUser());
-        existingBooking.setService(bookingRequest.getService());
-        existingBooking.setBookingTime(LocalDateTime.now()); // You can adjust this based on your requirements
-
-        // Save the updated booking to the database
-        return bookingRepo.save(existingBooking);
+        return bookingRepo.save(bookingRequest);
     }
 
     public Bookings findBookingsById(int booking_id){

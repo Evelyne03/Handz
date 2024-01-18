@@ -105,8 +105,9 @@ public class HandymanController {
         String password = user.get("password");
         try {
             Handyman handyman = handymanService.findHandymanByEmail(email);
-            if(!handyman.getPassword().equals(password))
+            if(!handyman.getPassword().equals(password)) {
                 throw new IllegalAccessException("Invalid password");
+            }
             return ResponseEntity.status(HttpStatus.OK).body(handyman);
         } catch (IllegalAccessException e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
