@@ -118,4 +118,8 @@ public class HandymanService {
     public List<Handyman> findExpertiseHandyman(String expertise) {
         return handymanRepo.findByServiceExpertise(expertise);
     }
+
+    public Handyman findHandymanByBookingId(int bookingId) {
+        return handymanRepo.findByBookingId(bookingId);
+    }
 }

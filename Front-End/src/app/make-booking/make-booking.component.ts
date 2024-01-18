@@ -6,6 +6,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { MatDialogModule} from "@angular/material/dialog";
 import { Service } from '../Models/service.model';
+import {User, UserService} from "../Models/user.model";
+import {Booking} from "../Models/booking.model";
 
 @Component({
   selector: 'app-make-booking',
@@ -16,11 +18,14 @@ export class MakeBookingComponent implements OnInit {
   services = ['Plumber', 'Electrician', 'Locksmith'];
   selectedService = '';
   handymen: Handyman[] = [];
-  //serviceTypes: string[] = ['Change Light Bulb', 'Repair Cables'];
   serviceTypes: Service[] = [];
   availableTimes: string[] = [];
+  user : User | null = this.service.getUser();
+  xxx: string = "";
+  bookingid: number = 0;
+  booking: Booking | null = null;
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {
+  constructor(private http: HttpClient, private dialog: MatDialog, private service: UserService) {
   }
 
   ngOnInit(): void {
@@ -38,9 +43,37 @@ export class MakeBookingComponent implements OnInit {
 
   completeReservation(handyman: any): void {
     this.dialog.open(this.confirmationDialog);
-
-
+    const selectedHandyman = this.handymen.find(h => h.id === handyman.id);
     this.handymen = this.handymen.filter(h => h !== handyman);
+    if(selectedHandyman){
+      const selectedDate = selectedHandyman.selectedDate;
+        const selectedTime = selectedHandyman.selectedTime;;
+        console.log(selectedDate, selectedTime);
+      // @ts-ignore
+      this.xxx = selectedHandyman.selectedServiceType.service_Id.toString();
+      this.http.post<Booking>('http://localhost:8080/api/bookings/add/' + this.user?.user_id + "/" +
+          handyman.id + "/" + this.xxx, "").subscribe(data => {
+            this.bookingid = data.bookingId;
+            this.booking = data;
+
+        if (selectedDate) {
+          data.bookingDate = selectedDate;
+          this.booking.bookingDate = selectedDate;
+        }
+        this.http.put<Booking>("http://localhost:8080/api/bookings/update/" + data.bookingId , data).subscribe(data => {
+          console.log(data);
+        });
+      });
+
+
+    }
+
+
+    if(selectedHandyman){
+      // @ts-ignore
+     // console.log();
+    }
+
   }
 
   preventGlitch(event: Event): void {

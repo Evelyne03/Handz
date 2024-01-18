@@ -72,4 +72,8 @@ public class ServicesService {
             return new ArrayList<>();
         }
     }
+
+    public Services findServicesByBookingId(int bookingId) {
+        return servicesRepo.findServicesByBookingId(bookingId);
+    }
 }

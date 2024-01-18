@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 
-export interface User{
-  userId: number;
+export interface User {
+  user_id: number;
   name: string|undefined;
   email: string|undefined;
   password: string|undefined;
@@ -20,6 +20,7 @@ export class UserService{
 
   setUser(user: User){
     this.currentUser = user;
+    console.log("User is: ", this.currentUser);
   }
 
   getUser(){

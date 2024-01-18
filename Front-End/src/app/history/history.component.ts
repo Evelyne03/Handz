@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {UserService} from "../Models/user.model";
+import {BookingService} from "../Models/booking.model";
+import {ServiceService} from "../Models/service.model";
+import {HandymanService} from "../Models/handyman.model";
+import {catchError, forkJoin, mergeMap, of} from "rxjs";
+import {Booking} from "../Models/booking.model";
 
 interface ServiceHistory {
   serviceType: string;
@@ -18,8 +25,17 @@ interface ServiceHistory {
 export class HistoryComponent implements OnInit {
   history: ServiceHistory[] = [];
   showReviewForm: boolean = false;
+  user = this.service.getUser()
+  // @ts-ignore
+  //handymanId = this.bookingService.getBooking().handymanId;
+  //handyman = this.handymanService.getHandyman(this.handymanId);
+  handymanName = "John Doe";
+  bookings: Booking[] = [];
+  handymanNames: string[] = [];
+  step:number = 0;
 
-  constructor() {
+  constructor(private service: UserService, private bookingService: BookingService, private router: Router,
+              private serviceService: ServiceService, private handymanService: HandymanService) {
   }
 
   ngOnInit(): void {
@@ -30,13 +46,33 @@ export class HistoryComponent implements OnInit {
     this.history[index].showReview = !this.history[index].showReview;
   }
   loadHistory(): void {
-    // Mock data for history items
-    this.history = [
-      {serviceType: 'Plumbing', date: '2024-01-14', handymanName: 'John Doe', status: 'Finished'},
-      {serviceType: 'Electrical', date: '2024-01-12', handymanName: 'Jane Smith', status: 'Cancelled'},
-      {serviceType: 'Landscaping', date: '2024-01-10', handymanName: 'Mike Johnson', status: 'In Progress'}
-      // Add more items as necessary
-    ];
+    if(this.user!=null)
+    {
+        this.bookingService.getBookingsbyUserId(this.user.user_id).subscribe((bookings: Booking[]) => {
+            this.bookings = bookings;
+            console.log("Bookings are: ", this.bookings);
+            this.bookings.forEach((booking: Booking) => {
+              booking.bookingId = bookings[this.step].bookingId;
+              this.step +=1;
+              console.log("Booking is: ", booking);
+            this.serviceService.getService(booking.serviceId).subscribe((service) => {
+                this.handymanService.getHandyman(booking.handymanId).subscribe((handyman) => {
+                this.handymanNames.push(handyman.name);
+                this.history.push({
+                    serviceType: "",
+                    date: booking.bookingDate.toString(),
+                    handymanName: handyman.name,
+                    status: booking.status,
+                    showReview: false,
+                    rating: undefined,
+                    submitted: false
+                });
+                });
+            });
+            });
+        });
+    }
+
   }
 
   toggleReviewForm(index: number): void {

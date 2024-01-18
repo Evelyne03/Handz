@@ -16,4 +16,7 @@ public interface HandymanRepo extends JpaRepository<Handyman, Integer> {
     boolean existsByEmail(String email);
     @Query("SELECT DISTINCT h FROM Handyman h JOIN h.services s WHERE s.expertise = :expertise")
     List<Handyman> findByServiceExpertise(@Param("expertise") String expertise);
+
+    @Query("SELECT DISTINCT h from Handyman h JOIN h.bookings b WHERE b.bookingId = :bookingId")
+    Handyman findByBookingId(int bookingId);
 }

@@ -1,6 +1,8 @@
 import {Service} from "./service.model";
 import {Booking} from "./booking.model";
 import {Injectable} from "@angular/core";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 
 export interface Handyman {
@@ -29,7 +31,7 @@ export interface Handyman {
 
 export class HandymanService{
   private currentUser: Handyman | null = null;
-  constructor() {
+  constructor(private http:HttpClient) {
   }
 
   setUser(handyman: Handyman){
@@ -39,5 +41,13 @@ export class HandymanService{
   getUser(): Handyman | null{
     return this.currentUser;
   }
+
+ getHandyman(handymanId: number): Observable<Handyman>{
+    return this.http.get<Handyman>("http://localhost:8080/api/handyman/find/" + handymanId);
+ }
+
+ getHandymanByBookingId(bookingId: number): Observable<Handyman>{
+    return this.http.get<Handyman>("http://localhost:8080/api/handyman/findbybookingid/" + bookingId);
+ }
 }
 

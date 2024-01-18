@@ -61,5 +61,11 @@ public class ServiceController {
         return servicesService.getServicesByExpertise(expertise);
     }
 
+    @GetMapping("/findbybookingid/{bookingId}")
+    public ResponseEntity<Services> getServicesByBookingId(@PathVariable("bookingId") int bookingId){
+        Services services = servicesService.findServicesByBookingId(bookingId);
+        return new ResponseEntity<>(services, HttpStatus.OK);
+    }
+
 
 }

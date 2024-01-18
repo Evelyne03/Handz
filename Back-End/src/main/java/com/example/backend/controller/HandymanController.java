@@ -32,6 +32,12 @@ public class HandymanController {
         return new ResponseEntity<>(handymen, HttpStatus.OK);
     }
 
+    @GetMapping("findbybookingid/{bookingId}")
+    public ResponseEntity<Handyman> getHandymanByBookingId(@PathVariable("bookingId") int bookingId){
+        Handyman handyman = handymanService.findHandymanByBookingId(bookingId);
+        return new ResponseEntity<>(handyman, HttpStatus.OK);
+    }
+
     @GetMapping("/find/{id}")
     public ResponseEntity<Handyman> getHandymanById(@PathVariable("id") int id){
         Handyman handyman = handymanService.findHandymanById(id);

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -146,5 +147,11 @@ public class BookingsService {
 
 
         return bookingRepo.save(newBooking);
+    }
+
+    public List<Bookings> findAllBookingsByUserId(int userId) {
+        return bookingRepo.findAll().stream()
+                .filter(booking -> booking.getUser().getUser_id() == userId)
+                .collect(Collectors.toList());
     }
 }

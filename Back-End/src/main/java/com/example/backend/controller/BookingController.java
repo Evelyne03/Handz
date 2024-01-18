@@ -36,6 +36,12 @@ public class BookingController {
         return new ResponseEntity<>(handymen, HttpStatus.OK);
     }
 
+    @GetMapping("/all/{userId}")
+    public ResponseEntity<List<Bookings>> getAllBookingsByUserId(@PathVariable("userId") int userId){
+        List<Bookings> bookings = bookingsService.findAllBookingsByUserId(userId);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
+
     @GetMapping("/find/{booking_id}")
     public ResponseEntity<Bookings> getBookingsById(@PathVariable("booking_id") int booking_id){
         Bookings bookings = bookingsService.findBookingsById(booking_id);
