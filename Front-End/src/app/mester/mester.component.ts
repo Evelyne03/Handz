@@ -5,8 +5,8 @@ import {Handyman, HandymanService} from "../Models/handyman.model";
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-
+import { HttpClient } from '@angular/common/http';
+import { Service } from '../Models/service.model';
 @Component({
   selector: 'app-mester',
   templateUrl: './mester.component.html',
@@ -17,24 +17,21 @@ export class MesterComponent {
     name: '',
     email: '',
     password: '',
-    image: null as any,
     imageURL: '',
     phoneNumber: '',
-    service: ''
+    services: [] as Service[],
+    bookings: []
   };
+  expertise:String | undefined;
 
-  constructor(private handymanService: HandymanService, private regService: RegHandymanService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(private http:HttpClient, private handymanService: HandymanService, private regService: RegHandymanService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   onImageSelected(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;
     if (fileList && fileList.length > 0) {
-      this.mester.image = fileList[0];
-
-      // FileReader for preview
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.mester.imageURL = e.target.result;
-      reader.readAsDataURL(this.mester.image); // No error as mester.image is guaranteed to be a File object
+      const selectElement = event.target as HTMLSelectElement;
+      this.mester.imageURL = selectElement.value;
     }
   }
 
@@ -51,7 +48,6 @@ export class MesterComponent {
       }
     });
   }
-
 
   validateEmail(emailField: NgModel): void {
     if (emailField.value && typeof emailField.value === 'string' && !emailField.value.includes('@')) {
@@ -70,17 +66,32 @@ export class MesterComponent {
     }
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      // Your logic to handle the form submission
-      // This might involve sending a request to a server or handling data processing
-      console.log('Form Data:', this.mester);
-    } else {
-      console.log('Form is not valid');
+  onExpertiseChange() {
+    if (this.expertise) {
+      const filterUrl = `http://localhost:8080/api/services/filter?expertise=${this.expertise}`;
+      this.http.get(filterUrl).subscribe(
+        response => {
+          // Assuming the response is an array of service objects
+          this.mester.services = response as any[];
+        },
+        error => {
+          console.error('Error occurred while fetching services', error);
+        }
+      );
     }
   }
 
-  // Optional: Any additional methods related to this component
-
-
+  onSubmit() {
+    const url = 'http://localhost:8080/api/handyman/add';
+    this.http.post(url, this.mester).subscribe(
+      response => {
+        console.log('Handyman account created', response);
+        // Handle the response here.
+      },
+      error => {
+        console.error('Error occurred while creating account', error);
+        // Handle the error here.
+      }
+    );
+  }
 }

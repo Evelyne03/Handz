@@ -1,6 +1,6 @@
 <div class="mester-component">
   <h1>Create Handyman Account</h1>
-  <form (ngSubmit)="onSubmit(mesterForm)" #mesterForm="ngForm">
+  <form (ngSubmit)="onSubmit()" #mesterForm="ngForm">
     <div class="inputbox">
       <input type="text" class="input-field" [(ngModel)]="mester.name" name="name" placeholder="Name" required>
     </div>
@@ -53,7 +53,7 @@
 
 
     <div class="inputbox">
-      <select class="input-field" [(ngModel)]="mester.service" name="service">
+      <select class="input-field" [(ngModel)]="expertise" name="service">
         <option value="" disabled selected>Select a Service</option>
         <option value="plumber">Plumber</option>
         <option value="electrician">Electrician</option>

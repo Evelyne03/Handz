@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 
@@ -12,11 +13,13 @@ export class ClientComponent {
     name: '',
     email: '',
     password: '',
-    image: null as any,
-    imaegURL: '',
-    phoneNumber: null,
-    imageURL: ''
+    imageURL: '',
+    phoneNumber: '',
+    bookings: []
   };
+  constructor(private http: HttpClient) { }
+
+  
 
   validateEmail(emailField: NgModel): void {
     if (emailField.value && !emailField.value.includes('@')) {
@@ -31,23 +34,28 @@ export class ClientComponent {
       }
     }
   }
-
+  onSubmit() {
+    const url = 'http://localhost:8080/api/user/add';
+    this.http.post(url, this.user).subscribe(
+      response => {
+        console.log('Account created', response);
+        // Handle the response here. Maybe navigate to a different page or show a success message.
+      },
+      error => {
+        console.error('Error occurred while creating account', error);
+        // Handle the error here. Maybe show an error message to the user.
+      }
+    );
+  }
+  
   onImageSelected(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;
     if (fileList && fileList.length > 0) {
-      this.user.image = fileList[0];
-
-      // Optional: FileReader for image preview
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.user.imageURL = e.target.result;
-      reader.readAsDataURL(this.user.image);
+      const selectElement = event.target as HTMLSelectElement;
+      this.user.imageURL = selectElement.value;
     }
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      console.log('Form data:', form.value);
-    }
-  }
+  
 }
