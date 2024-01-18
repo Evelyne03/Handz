@@ -11,12 +11,12 @@ import {UserService} from "../../Models/user.model";
 export class ProfileComponent {
   handymanInfo: any;
 
-  constructor(private user:UserService) {
+  constructor(private user:UserService, private handyman: HandymanService) {
   }
 
   ngOnInit(){
-    if(this.user.getUser())
-      this.handymanInfo = this.user.getUser()
+    if(this.handyman.getUser())
+      this.handymanInfo = this.handyman.getUser()
   }
 
 }

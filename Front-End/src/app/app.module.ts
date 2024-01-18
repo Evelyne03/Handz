@@ -59,10 +59,10 @@ import { StarRatingPipe } from './star-rating.pipe';
     SettingsComponent,
     HandymanProfileComponent,
     ProfileComponent,
-    RequestsComponent,
     HandymanHistoryComponent,
     HandymanSettingsComponent,
     ReviewComponent,
+      RequestsComponent,
     StarRatingPipe,
 
 

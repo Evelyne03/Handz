@@ -2,6 +2,8 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Handyman} from "./handyman.model";
+import {User} from "./user.model";
+import {Service} from "./service.model";
 
 export interface Booking{
   bookingId: number;
@@ -12,6 +14,15 @@ export interface Booking{
   status: string;
   submitted: boolean;
   handyman:Handyman;
+}
+
+export interface BookingComplex{
+    bookingId: number;
+    user:User,
+    handyman:Handyman,
+    service:Service,
+    bookingTime:Date,
+    status:string,
 }
 
 @Injectable({
@@ -38,6 +49,10 @@ export class BookingService{
 
     getBookingsbyUserId(userId: number): Observable<Booking[]>{
         return this.http.get<Booking[]>("http://localhost:8080/api/bookings/all/" + userId);
+    }
+
+    getBookingsbyHandymanId(handymanId: number): Observable<BookingComplex[]>{
+        return this.http.get<BookingComplex[]>("http://localhost:8080/api/bookings/handymanid/" + handymanId);
     }
 
     getExpertise(bookingId: number): Observable<string>{

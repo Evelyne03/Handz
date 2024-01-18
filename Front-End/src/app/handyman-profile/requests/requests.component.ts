@@ -1,36 +1,97 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {User} from "../../Models/user.model";
+import {Handyman, HandymanService} from "../../Models/handyman.model";
+import {Service} from "../../Models/service.model";
+import {handleAutoChangeDetectionStatus} from "@angular/cdk/testing";
+import {Booking, BookingComplex, BookingService} from "../../Models/booking.model";
+
+import {HttpClient} from "@angular/common/http";
+
+interface requestComplex{
+  bookingId: number;
+  user:User,
+  handyman:Handyman,
+  service:Service,
+  bookingTime:Date,
+  description:string,
+  status:string,
+}
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.css'
 })
-export class RequestsComponent {
-  requests: any[] = [
-    { description: 'Request 10',
-      status: 'Pending',
-      date: '2021-01-01',
-      user: 'User 1',
-      servicetype: 'Service Type 1',
-      time: '10:00 AM'
-    },
-    { description: 'Request 10',
-      status: 'Pending',
-      date: '2021-01-01',
-      user: 'User 1',
-      servicetype: 'Service Type 1',
-      time: '10:00 AM'
-    },
 
-  ];
+
+
+export class RequestsComponent implements OnInit{
+
+  handyman: Handyman | null = this.handymanService.getUser();
+
+requests: requestComplex[] = [
+    ];
+
+    constructor(private handymanService: HandymanService, private bookingService: BookingService,
+                private http: HttpClient) {
+
+    }
+
+    fetchBookings(){
+      if(this.handyman != null){
+        this.bookingService.getBookingsbyHandymanId(this.handyman?.id).subscribe((bookings: BookingComplex[]) => {
+          this.requests = [];
+            bookings.forEach((booking: BookingComplex) => {
+              if(booking.status === 'Pending')
+            this.requests.push({
+              bookingId: booking.bookingId,
+                user: booking.user,
+                handyman: booking.handyman,
+                service: booking.service,
+              description: booking.service.description.toString(),
+                bookingTime: booking.bookingTime,
+                status: booking.status,
+            });
+
+            console.log(this.requests);
+
+            });
+        });
+    }
+    }
 
   acceptRequest(request: any) {
-    // Add your logic for accepting the request here
     console.log(`Accepted: ${request.description}`);
+    request.status = 'Confirmed';
+
+    this.fetchBookings();
   }
 
-  declineRequest(request: any) {
-    // Add your logic for declining the request here
-    console.log(`Declined: ${request.description}`);
+  declineRequest(requests: any) {
+    console.log(`Declined: ${requests.description}`);
+    requests.status = 'Declined';
+    // @ts-ignore
+    this.http.get('http://localhost:8080/api/bookings/decline-booking/' + requests.bookingId).subscribe((data: BookingComplex) => {
+
+    });
+
+    this.fetchBookings();
+  }
+
+  confirmRequest(requests: any) {
+      console.log(requests);
+    requests.status = 'Confirmed';
+      // @ts-ignore
+    this.http.get('http://localhost:8080/api/bookings/confirm-booking/' + requests.bookingId).subscribe((data: BookingComplex) => {
+
+  });
+
+    this.fetchBookings();
+
+    }
+
+
+  ngOnInit(): void {
+    this.fetchBookings();
   }
 }
