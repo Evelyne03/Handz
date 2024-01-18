@@ -4,17 +4,18 @@ import {UserService} from "../Models/user.model";
 import {BookingService} from "../Models/booking.model";
 import {ServiceService} from "../Models/service.model";
 import {HandymanService} from "../Models/handyman.model";
-import {catchError, forkJoin, mergeMap, of} from "rxjs";
+import {catchError, delayWhen, forkJoin, mergeMap, of} from "rxjs";
 import {Booking} from "../Models/booking.model";
 
 interface ServiceHistory {
-  serviceType: string;
-  date: string;
-  handymanName: string;
-  status: string;
-  showReview?: boolean;
-  rating?: number;
-  submitted?: boolean;
+    serviceType: string;
+    date: string;
+    handymanName: string;
+    status: string;
+    showReview?: boolean;
+    rating?: number;
+    submitted?: boolean;
+    serviceDetails?: any;
 }
 
 @Component({
@@ -22,6 +23,8 @@ interface ServiceHistory {
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
+
+
 export class HistoryComponent implements OnInit {
   history: ServiceHistory[] = [];
   showReviewForm: boolean = false;
@@ -33,6 +36,9 @@ export class HistoryComponent implements OnInit {
   bookings: Booking[] = [];
   handymanNames: string[] = [];
   step:number = 0;
+  currentserviceid: number = 0;
+    private handymanId: number = 0;
+    details: any;
 
   constructor(private service: UserService, private bookingService: BookingService, private router: Router,
               private serviceService: ServiceService, private handymanService: HandymanService) {
@@ -45,37 +51,65 @@ export class HistoryComponent implements OnInit {
   leaveReview(index: number): void {
     this.history[index].showReview = !this.history[index].showReview;
   }
-  loadHistory(): void {
-    if(this.user!=null)
-    {
-        this.bookingService.getBookingsbyUserId(this.user.user_id).subscribe((bookings: Booking[]) => {
-            this.bookings = bookings;
-            console.log("Bookings are: ", this.bookings);
-            this.bookings.forEach((booking: Booking) => {
-              booking.bookingId = bookings[this.step].bookingId;
-              this.step +=1;
-              console.log("Booking is: ", booking);
-            this.serviceService.getService(booking.serviceId).subscribe((service) => {
-                this.handymanService.getHandyman(booking.handymanId).subscribe((handyman) => {
-                this.handymanNames.push(handyman.name);
-                this.history.push({
-                    serviceType: "",
-                    date: booking.bookingDate.toString(),
-                    handymanName: handyman.name,
-                    status: booking.status,
-                    showReview: false,
-                    rating: undefined,
-                    submitted: false
-                });
-                });
-            });
-            });
-        });
+
+    sleep(ms: number): Promise<void> {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-  }
+    loadHistory(): void {
+        if (this.user != null) {
+            this.bookingService.getBookingsbyUserId(this.user.user_id).subscribe((bookings: Booking[]) => {
+                this.bookings = bookings;
+                console.log("Bookings are: ", this.bookings);
 
-  toggleReviewForm(index: number): void {
+                this.bookings.forEach((booking: Booking, index: number) => {
+                    booking.bookingId = bookings[index].bookingId;
+                    console.log("Booking is: ", booking);
+
+                    // Fetch service by booking ID
+                    this.serviceService.getServiceByBookingId(booking.bookingId).subscribe((service) => {
+                        console.log("Service is: ", service);
+                        const currentserviceid = service.service_Id;
+                        console.log("Current service id is: ", currentserviceid);
+
+                        // Fetch service using the current service ID
+                        this.serviceService.getService(currentserviceid).subscribe((serviceDetails) => {
+                            console.log(booking.bookingTime)
+
+                            //format date to be more readable
+                            let date = new Date(booking.bookingTime);
+                            let day = date.getDate();
+                            let month = date.getMonth() + 1;
+                            let year = date.getFullYear();
+                            let hours = date.getHours();
+                            let minutes = date.getMinutes();
+                            let seconds = date.getSeconds();
+                            let formattedDate = day + "/" + month + "/" + year ;
+
+                            console.log(serviceDetails.description.toString())
+
+                            // Fetch handyman details
+                                this.history.push({
+                                    serviceType: serviceDetails.expertise.toString(), // assuming serviceType is a field in serviceDetails
+                                    date: formattedDate.toString(),
+                                    handymanName: "",
+                                    status: booking.status,
+                                    showReview: false,
+                                    rating: undefined,
+                                    submitted: false,
+                                    serviceDetails: serviceDetails.description.toString()
+                                });
+                            this.details = serviceDetails.description.toString();
+
+                        });
+                    });
+                });
+            });
+        }
+    }
+
+
+    toggleReviewForm(index: number): void {
     if (!this.history[index].submitted) {
       this.history[index].showReview = !this.history[index].showReview;
     }

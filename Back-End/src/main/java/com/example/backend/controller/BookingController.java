@@ -114,6 +114,12 @@ public class BookingController {
         bookingsService.deleteBookings(booking_id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/handymanid/{handymanId}")
+    public ResponseEntity<List<Bookings>> getBookingsByHandymanId(@PathVariable("handymanId") int handymanId){
+        List<Bookings> bookings = bookingsService.findBookingsByHandymanId(handymanId);
+        return new ResponseEntity<>(bookings, HttpStatus.OK);
+    }
     
     
 }

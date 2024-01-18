@@ -7,7 +7,7 @@ export interface Booking{
   userId: number;
   handymanId:number;
   serviceId: number;
-  bookingDate: Date;
+  bookingTime: Date;
   status: string;
 }
 
@@ -39,6 +39,10 @@ export class BookingService{
 
     getExpertise(bookingId: number): Observable<string>{
         return this.http.get<string>("http://localhost:8080/api/bookings/expertise/" + bookingId);
+    }
+
+    getHandymanId(bookingId: number): Observable<number>{
+        return this.http.get<number>("http://localhost:8080/api/bookings/handymanid/" + bookingId);
     }
 }
 

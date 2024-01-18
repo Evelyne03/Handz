@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 export interface Service{
-  serviceId: number;
+  service_Id: number;
   expertise: String;
   availability: String;
   price: number;

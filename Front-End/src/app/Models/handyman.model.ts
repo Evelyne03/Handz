@@ -46,6 +46,10 @@ export class HandymanService{
     return this.http.get<Handyman>("http://localhost:8080/api/handyman/find/" + handymanId);
  }
 
+ getHandymanByHandyman(handyman: Handyman): Observable<Handyman>{
+    return this.http.get<Handyman>("http://localhost:8080/api/handyman/find/" + handyman.handymanId);
+ }
+
  getHandymanByBookingId(bookingId: number): Observable<Handyman>{
     return this.http.get<Handyman>("http://localhost:8080/api/handyman/findbybookingid/" + bookingId);
  }

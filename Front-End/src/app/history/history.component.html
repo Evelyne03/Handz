@@ -9,10 +9,11 @@
 <div class="history-container">
   <h1>Your Service History</h1>
   <ul class="history-list">
-    <li *ngFor="let item of history; let i = index" [ngClass]="{'finished': item.status === 'Finished', 'cancelled': item.status === 'Cancelled', 'in-progress': item.status === 'Pending'}" class="history-item">
+    <li *ngFor="let item of history; let i = index" [ngClass]="{'finished': item.status === 'Confirmed', 'cancelled': item.status === 'Declined', 'in-progress': item.status === 'Pending'}" class="history-item">
       <div class="history-item-title">{{ item.serviceType }} - {{ item.status }}</div>
+      <div class="history-item-title">{{ item.date }}</div>
       <div class="history-item-description">
-        This is a short description of the service that was completed successfully. It includes details about the service and its outcomes.
+        {{ details }}
       </div>
       <button *ngIf="item.status === 'Finished' && !item.submitted" class="review-button" (click)="toggleReviewForm(i)">Review</button>
       <div class="review-popup" *ngIf="item.showReview">

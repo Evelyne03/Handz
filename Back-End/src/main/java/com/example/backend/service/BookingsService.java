@@ -144,4 +144,10 @@ public class BookingsService {
                 .filter(booking -> booking.getUser().getUser_id() == userId)
                 .collect(Collectors.toList());
     }
+
+    public List<Bookings> findBookingsByHandymanId(int handymanId) {
+        return bookingRepo.findAll().stream()
+                .filter(booking -> booking.getHandyman().getHandyman_id() == handymanId)
+                .collect(Collectors.toList());
+    }
 }

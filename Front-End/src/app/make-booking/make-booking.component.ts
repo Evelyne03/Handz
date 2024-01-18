@@ -57,8 +57,8 @@ export class MakeBookingComponent implements OnInit {
             this.booking = data;
 
         if (selectedDate) {
-          data.bookingDate = selectedDate;
-          this.booking.bookingDate = selectedDate;
+          data.bookingTime = selectedDate;
+          this.booking.bookingTime = selectedDate;
         }
         this.http.put<Booking>("http://localhost:8080/api/bookings/update/" + data.bookingId , data).subscribe(data => {
           console.log(data);
