@@ -5,13 +5,12 @@
       <div class="request-details">
         <p>{{ request.description }}</p>
         <p>{{ request.status }}</p>
-        <p>{{ request.servicetype }}</p>
-        <p>{{ request.date }}</p>
+        <p>{{ request.description }}</p>
+        <p>{{ request.bookingTime }}</p>
         <p>{{ request.user }}</p>
-        <p>{{ request.time }}</p>
       </div>
       <div class="request-actions">
-        <button (click)="acceptRequest(request)" class="accept-button">Accept</button>
+        <button (click)="confirmRequest(request)" class="accept-button">Accept</button>
         <button (click)="declineRequest(request)" class="decline-button">Decline</button>
       </div>
     </div>

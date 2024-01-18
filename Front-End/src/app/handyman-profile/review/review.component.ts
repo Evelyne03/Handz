@@ -1,13 +1,27 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import { User } from '../../Models/user.model';
 import {HttpClient} from "@angular/common/http";
+import {UserService} from "../../Models/user.model";
+import {Handyman, HandymanService} from "../../Models/handyman.model";
+import {Service} from "../../Models/service.model";
+
 interface Review {
   userId: number;
   serviceId: number;
   handymanId: number;
   rating: number;
   comment: string;
+    status: string;
+}
 
+interface ReviewComplex{
+  user: User;
+  service:Service;
+    handyman: Handyman;
+    reviewId: number;
+    reviewDateTime: Date;
+    rating: number;
+    comment: string;
 }
 @Component({
   selector: 'app-review',
@@ -15,17 +29,33 @@ interface Review {
   styleUrl: './review.component.css'
 })
 export class ReviewComponent implements OnInit{
-  reviews: Review[] = [];
+  reviews: ReviewComplex[] = [];
   canLeaveReview: boolean = true;
+  user = this.userService.getUser();
+  handyman = this.handyService.getUser();
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient, private userService: UserService, private handyService: HandymanService) { }
 
 ngOnInit(): void {
   // Filter reviews to only include those with 'Finished' status
-  //this.reviews = getAllReviewsOfHandyman(user.id);
+  // @ts-ignore
+  this.reviews = this.getAllReviewsOfHandyman(this.handyman.id);
+  console.log("Handyman on review is: " + this.handyman?.name)
+  // @ts-ignore
+  console.log("Handyman id on review is: " + this.handyman.id)
   //this.reviews = this.reviews.filter(review => review.status === 'Confirmed');
+  console.log("Reviews are: ", this.reviews);
 }
 
+  getAllReviewsOfHandyman(handymanId: number) {
+    // @ts-ignore
+    this.http.get('http://localhost:8080/api/reviews/handyman/' + handymanId).subscribe((data: ReviewComplex[]) => {
+      this.reviews = data;
+      console.log("Reviews updated: ", this.reviews);
+    }, error => {
+      console.error("Error fetching reviews: ", error);
+    });
+  }
 
 
   fetchReviews() {
