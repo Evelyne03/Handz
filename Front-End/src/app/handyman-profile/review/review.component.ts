@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-
+import {Component, Injectable, OnInit} from '@angular/core';
+import { User } from '../../Models/user.model';
 interface Review {
   clientName: string;
   date: Date;
@@ -13,30 +13,7 @@ interface Review {
   styleUrl: './review.component.css'
 })
 export class ReviewComponent implements OnInit{
-  reviews: Review[] = [
-  {
-    clientName: 'John Doe',
-    date: new Date('2024-01-14'),
-    comment: 'Excellent service! Highly recommend.',
-    status: 'Finished',
-    rating: 5
-  },
-    {
-      clientName: 'Jane Doe',
-      date: new Date('2024-01-10'),
-      comment: 'Ok,',
-      status: 'Finished',
-      rating: 3
-    },
-    {
-      clientName: 'Papa Louie',
-      date: new Date('2024-01-19'),
-      comment: 'Very good service!',
-      status: 'Finished',
-      rating: 5
-    },
-
-];
+  reviews: Review[] = [];
   newReview: Review = { clientName: '', date: new Date(), comment: '', status: 'Finished', rating: 0 };
   canLeaveReview: boolean = true;
 
@@ -44,9 +21,31 @@ constructor() { }
 
 ngOnInit(): void {
   // Filter reviews to only include those with 'Finished' status
+  //this.reviews = getAllReviewsOfHandyman(user.id);
   this.reviews = this.reviews.filter(review => review.status === 'Finished');
 }
 
 }
 export class HandymanReviewComponent {
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+
+class ReviewService{
+  private currentUser: Review | null = null;
+  constructor() {
+  }
+
+  setUser(handyman: Review){
+    this.currentUser = handyman;
+  }
+
+  getUser(): Review | null{
+    return this.currentUser;
+  }
+}
+
+
+

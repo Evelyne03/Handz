@@ -103,9 +103,9 @@ public class BookingController {
             return new ResponseEntity<>("Error declining booking: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping("/update/{bookingId}")
-    public ResponseEntity<Bookings> updateBookings( @PathVariable Integer bookingId,@RequestBody Bookings bookings){
-        Bookings updateBookings =bookingsService.updateBookings(bookingId,bookings);
+    @PutMapping("/update")
+    public ResponseEntity<Bookings> updateBookings(@RequestBody Bookings bookings){
+        Bookings updateBookings =bookingsService.updateBookings(bookings);
         return new ResponseEntity<>(updateBookings, HttpStatus.OK);
     }
 
