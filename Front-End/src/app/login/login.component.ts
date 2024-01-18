@@ -40,7 +40,9 @@ export class LoginComponent implements OnInit {
       if (userData) {
         console.log("merge aci");
         this.user.setUser(userData);
-        console.log("UserData is: ", userData)
+
+        this.handy.setUser(userData);
+        console.log("UserData is: ", this.handy);
         this.router.navigate(['/handyman-profile/profile']);
         this.dialog.closeAll();
       } else {
