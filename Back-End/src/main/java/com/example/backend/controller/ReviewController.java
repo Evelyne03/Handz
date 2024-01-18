@@ -20,10 +20,9 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @GetMapping("/handyman/{handymanId}")
-    public List<Review> getAllReviewsByHandymanId(@PathVariable int handymanId){
-
-        return reviewService.getAllReviewsByHandymanId(handymanId);
-
+    public ResponseEntity<List<Review>> getAllReviewsByHandymanId(@PathVariable int handymanId){
+        List<Review> reviews = reviewService.getAllReviewsByHandymanId(handymanId);
+        return new ResponseEntity<>(reviews,HttpStatus.OK);
     }
     @GetMapping
     public List<Review> getAllReviews() {
