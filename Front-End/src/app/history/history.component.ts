@@ -6,16 +6,19 @@ import {ServiceService} from "../Models/service.model";
 import {HandymanService} from "../Models/handyman.model";
 import {catchError, delayWhen, forkJoin, mergeMap, of} from "rxjs";
 import {Booking} from "../Models/booking.model";
+import {ReviewComponent} from "../handyman-profile/review/review.component";
 
 interface ServiceHistory {
     serviceType: string;
     date: string;
     handymanName: string;
+    handymanId?: number;
     status: string;
     showReview?: boolean;
     rating?: number;
     submitted?: boolean;
-    serviceDetails?: any;
+    serviceDetails?: string;
+    serviceId?: number;
 }
 
 @Component({
@@ -41,7 +44,8 @@ export class HistoryComponent implements OnInit {
     details: any;
 
   constructor(private service: UserService, private bookingService: BookingService, private router: Router,
-              private serviceService: ServiceService, private handymanService: HandymanService) {
+              private serviceService: ServiceService, private handymanService: HandymanService,
+              private reviewComponent: ReviewComponent) {
   }
 
   ngOnInit(): void {
@@ -74,6 +78,7 @@ export class HistoryComponent implements OnInit {
 
                         // Fetch service using the current service ID
                         this.serviceService.getService(currentserviceid).subscribe((serviceDetails) => {
+                            console.log("Handyman details is: ", booking.handyman);
                             console.log(booking.bookingTime)
 
                             //format date to be more readable
@@ -86,21 +91,24 @@ export class HistoryComponent implements OnInit {
                             let seconds = date.getSeconds();
                             let formattedDate = day + "/" + month + "/" + year ;
 
-                            console.log(serviceDetails.description.toString())
+                            let handymanId = booking.handymanId;
 
-                            // Fetch handyman details
+                            console.log("Handyman ID is: ", booking.handyman.id);
+
                                 this.history.push({
                                     serviceType: serviceDetails.expertise.toString(), // assuming serviceType is a field in serviceDetails
                                     date: formattedDate.toString(),
                                     handymanName: "",
                                     status: booking.status,
+                                    handymanId: booking.handyman.id,
                                     showReview: false,
                                     rating: undefined,
                                     submitted: false,
-                                    serviceDetails: serviceDetails.description.toString()
+                                    serviceDetails: serviceDetails.description.toString(),
+                                    serviceId: currentserviceid
                                 });
                             this.details = serviceDetails.description.toString();
-
+                            console.log("History is: ", this.history);
                         });
                     });
                 });
@@ -112,6 +120,7 @@ export class HistoryComponent implements OnInit {
     toggleReviewForm(index: number): void {
     if (!this.history[index].submitted) {
       this.history[index].showReview = !this.history[index].showReview;
+      console.log("History is: ", this.history[index])
     }
   }
 
@@ -137,6 +146,20 @@ export class HistoryComponent implements OnInit {
     if (reviewText && rating) {
       if (confirm('Are you sure you want to submit this review?')) {
         console.log('Review Submitted:', reviewText, 'Rating:', rating);
+
+        if(this.user){
+            let review = {
+                userId: this.user.user_id,
+                handymanId: item.handymanId,
+                serviceId: item.serviceId,
+                comment: reviewText,
+                //status: 'Confirmed',
+                rating: rating
+            }
+            console.log("Review is: ", review);
+            this.reviewComponent.sendReviewFromUser(this.user.user_id,item.serviceId, item.handymanId, item.rating, reviewText);
+        }
+
         reviewTextElement.value = '';
         item.rating = undefined;
         item.submitted = true;

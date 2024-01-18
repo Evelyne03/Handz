@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Handyman} from "./handyman.model";
 
 export interface Booking{
   bookingId: number;
@@ -9,6 +10,8 @@ export interface Booking{
   serviceId: number;
   bookingTime: Date;
   status: string;
+  submitted: boolean;
+  handyman:Handyman;
 }
 
 @Injectable({

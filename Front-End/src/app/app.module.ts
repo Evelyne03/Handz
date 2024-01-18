@@ -88,7 +88,7 @@ import { StarRatingPipe } from './star-rating.pipe';
         NgxTimepickerModule,
         HttpClientModule
     ],
-  providers: [AuthService, MesterComponent],
+  providers: [AuthService, MesterComponent, ReviewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

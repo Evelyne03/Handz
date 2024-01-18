@@ -4,8 +4,8 @@
     <button (click)="fetchReviews()">update reviews</button>
   </div>
   <div *ngFor="let review of reviews" class="review-card">
-    <h3>{{ review.clientName }}</h3>
-    <p>{{ review.date | date:'mediumDate' }}</p>
+    <h3>{{ review.serviceId }}</h3>
+    <p>{{ review.userId | date:'mediumDate' }}</p>
     <p>Rating: {{ review.rating | starRating }}</p> <!-- This line uses the starRating pipe -->
     <p>{{ review.comment }}</p>
   </div>

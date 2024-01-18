@@ -1,14 +1,13 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import { User } from '../../Models/user.model';
 import {HttpClient} from "@angular/common/http";
-import { Observable } from 'rxjs/internal/Observable';
-import { Handyman, HandymanService } from '../../Models/handyman.model';
-
 interface Review {
-  clientName: string;
-  date: Date;
-  comment: string;
+  userId: number;
+  serviceId: number;
+  handymanId: number;
   rating: number;
+  comment: string;
+
 }
 @Component({
   selector: 'app-review',
@@ -17,50 +16,44 @@ interface Review {
 })
 export class ReviewComponent implements OnInit{
   reviews: Review[] = [];
-  newReview: Review = { clientName: '', date: new Date(), comment: '', rating: 0 };
   canLeaveReview: boolean = true;
-  handyman = this.service.getUser();
 
-constructor(private http:HttpClient,private service: HandymanService,private rservice:ReviewService) { }
+constructor(private http: HttpClient) { }
 
 ngOnInit(): void {
-  // @ts-ignore
   // Filter reviews to only include those with 'Finished' status
-}  
+  //this.reviews = getAllReviewsOfHandyman(user.id);
+  //this.reviews = this.reviews.filter(review => review.status === 'Confirmed');
+}
 
-fetchReviews(): void {
-  console.log(this.handyman);
-  if(this.handyman!=null){
-    console.log("metoda");
-    console.log(this.handyman);
-    this.http.get<Review[]>('http://localhost:8080/api/reviews/handyman/'+this.handyman.id).subscribe(data => {
-    this.reviews = data;
-    console.log(data);
-  });
+
+
+  fetchReviews() {
+
   }
-  
-}
-}
 
-export class HandymanReviewComponent {
-}
-
-
+  sendReviewFromUser(user_id: number, serviceId: number | undefined, handymanId: number | undefined, rating: number | undefined, reviewText: string) {
+    this.http.post('http://localhost:8080/api/reviews/add', {
+        userId: user_id,
+        serviceId: serviceId,
+        handymanId: handymanId,
+        rating: rating,
+        comment: reviewText
+        }).subscribe((data) => {
+        console.log(data);
+        });
+    }
+  }
 
 @Injectable({
   providedIn: 'root'
 })
 
-class ReviewService{
+export class ReviewService{
   private currentUser: Review | null = null;
-  constructor(private http:HttpClient) {
+  constructor() {
   }
 
-  
-  
-  getReviewbyHandymanId(handymanId: number): Observable<Review[]>{
-    return this.http.get<Review[]>("http://localhost:8080/api/reviews/handyman/" + handymanId);
-  }
   setUser(handyman: Review){
     this.currentUser = handyman;
   }
@@ -68,9 +61,11 @@ class ReviewService{
   getUser(): Review | null{
     return this.currentUser;
   }
+
+  sendReviewFromUser(clientid: number, handymanid: number, review: Review){
+  }
+
 }
-
-
 
 
 

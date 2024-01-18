@@ -15,7 +15,7 @@
       <div class="history-item-description">
         {{ details }}
       </div>
-      <button *ngIf="item.status === 'Finished' && !item.submitted" class="review-button" (click)="toggleReviewForm(i)">Review</button>
+      <button *ngIf="item.status === 'Confirmed' && !item.submitted" class="review-button" (click)="toggleReviewForm(i)">Review</button>
       <div class="review-popup" *ngIf="item.showReview">
         <div class="review-header">
           <h2>Leave a Review for {{ item.serviceType }}</h2>
