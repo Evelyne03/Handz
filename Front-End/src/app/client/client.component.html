@@ -1,6 +1,6 @@
 <div class="client-component">
   <h1>Create Client Account</h1>
-  <form (ngSubmit)="onSubmit(clientForm)" #clientForm="ngForm">
+  <form (ngSubmit)="onSubmit()" #clientForm="ngForm">
     <!-- Name Field -->
     <div class="inputbox">
       <input type="text" class="input-field" [(ngModel)]="user.name" name="name" placeholder="Name" required>
@@ -47,6 +47,15 @@
           Please enter a valid phone number.
         </span>
       </div>
+    </div>
+
+    <!-- SVG Photo Selection -->
+    <div class="inputbox">
+      <label for="svgOption">Choose SVG Photo:</label>
+      <select id="svgOption" class="input-field" (change)="onImageSelected($event)" [(ngModel)]="user.imageURL" name="imageURL" required>
+        <option value="assets/svgs/svg1.svg">SVG 1</option>
+        <option value="assets/svgs/svg2.svg">SVG 2</option>
+      </select>
     </div>
 
     <!-- Submit Button -->

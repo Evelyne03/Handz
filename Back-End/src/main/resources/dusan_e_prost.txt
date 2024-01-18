@@ -24,7 +24,7 @@
     "email": "printesa@example.com",
     "password": "calinvtm",
     "imageURL": "http://example.com/john.jpg",
-    "phoneNumber": "0756222333",
+    "phoneNumber": "756222333",
     "services": [],
     "bookings": []
 }
