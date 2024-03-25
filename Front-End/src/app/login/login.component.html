@@ -31,7 +31,17 @@
              #password="ngModel"
              name="password"
              class="form-control">
+      <div *ngIf="password.errors && (password.dirty || password.touched)">
+        <span class="error-message" *ngIf="password.errors['required']">
+          Password is required.
+        </span>
+        <!-- Add an error message for incorrect password -->
+        <span class="error-message" *ngIf="!password.errors && !isPasswordCorrect">
+          Incorrect password.
+        </span>
+      </div>
     </div>
+
 
     <button type="submit" (click)="onAutentificareClick()">Login </button>
   </form>

@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
     console.log('LoginComponent initialized');
   }
 
+
+  isPasswordCorrect: boolean = true;
   onAutentificareClick() {
     this.authService.logindb(this.userEmail, this.userPassword).subscribe(
       (userData) => {
@@ -45,6 +47,7 @@ export class LoginComponent implements OnInit {
         this.dialog.closeAll();
       } else {
         console.log('Login failed');
+        this.isPasswordCorrect = false;
       }
     });
   }

@@ -146,6 +146,7 @@ export class HistoryComponent implements OnInit {
     if (reviewText && rating) {
       if (confirm('Are you sure you want to submit this review?')) {
         console.log('Review Submitted:', reviewText, 'Rating:', rating);
+        item.submitted = true;
 
         if(this.user){
             let review = {

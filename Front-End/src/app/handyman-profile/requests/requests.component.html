@@ -3,11 +3,11 @@
   <div class="request-list">
     <div *ngFor="let request of requests" class="request-item">
       <div class="request-details">
-        <p>{{ request.description }}</p>
-        <p>{{ request.status }}</p>
-        <p>{{ request.description }}</p>
-        <p>{{ request.bookingTime }}</p>
-        <p>{{ request.user }}</p>
+        <p>Tip lucrare: {{ request.service.expertise }}</p>
+        <p>Status: {{ request.status }}</p>
+        <p>Descrierea lucrarii: {{ request.description }}</p>
+        <p>Data: {{ request.bookingTime }}</p>
+        <p>Utilizatorul interesat: {{ request.user.name }}</p>
       </div>
       <div class="request-actions">
         <button (click)="confirmRequest(request)" class="accept-button">Accept</button>
